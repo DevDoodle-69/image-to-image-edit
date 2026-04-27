@@ -7,99 +7,37 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:#000;font-family:system-ui;color:#fff;min-height:100vh;display:flex;justify-content:center;padding:1rem}
-.app{max-width:1200px;width:100%;background:#0a0a0a;border:1px solid #222;border-radius:20px;padding:1rem;animation:fade .5s ease}
-@keyframes fade{from{opacity:0;transform:translateY(15px)}to{opacity:1;transform:translateY(0)}}
-
-.header{text-align:center;margin-bottom:1rem}
-.header h1{font-size:1.6rem;letter-spacing:.05em}
+body{background:#000;font-family:system-ui;color:#fff;padding:10px}
+.app{max-width:900px;margin:auto;background:#0a0a0a;border-radius:20px;padding:12px;border:1px solid #222}
+.header{text-align:center;margin-bottom:10px}
+.header h1{font-size:1.4rem}
 .header p{font-size:.7rem;color:#777}
 
-.grid{display:flex;flex-wrap:wrap;gap:1rem}
-.left{flex:1.2;min-width:260px}
-.right{flex:1;min-width:260px}
+.card{background:#111;border-radius:14px;padding:12px;margin-bottom:10px;border:1px solid #222}
+.title{font-size:.85rem;margin-bottom:6px;border-left:3px solid #fff;padding-left:5px}
 
-.card{background:#111;border:1px solid #222;border-radius:15px;padding:1rem;transition:.2s}
-.card:hover{transform:translateY(-3px)}
-.title{font-size:.9rem;margin-bottom:.5rem;border-left:3px solid #fff;padding-left:.4rem}
+.upload{border:2px dashed #333;padding:18px;text-align:center;border-radius:10px;cursor:pointer}
+.upload i{font-size:26px;color:#777}
+.upload p{font-size:.7rem;color:#777;margin-top:4px}
 
-.upload{
-border:2px dashed #333;
-padding:1.5rem;
-text-align:center;
-border-radius:12px;
-cursor:pointer;
-transition:.2s
-}
-.upload:hover{border-color:#fff;background:#151515}
-.upload i{font-size:2rem;color:#888;margin-bottom:.4rem}
-.upload p{font-size:.7rem;color:#777}
+textarea{width:100%;margin-top:8px;background:#050505;border:1px solid #222;border-radius:10px;padding:8px;color:#fff;font-size:.8rem}
 
-.preview img{max-width:100%;border-radius:10px;margin-top:.5rem}
+button{width:100%;margin-top:8px;background:#fff;color:#000;border:none;padding:8px;border-radius:20px;font-weight:600;cursor:pointer}
 
-textarea{
-width:100%;
-background:#050505;
-border:1px solid #222;
-border-radius:10px;
-padding:.6rem;
-color:#fff;
-margin-top:.5rem;
-font-size:.8rem
-}
+.status{font-size:.7rem;text-align:center;margin-top:6px;color:#aaa}
 
-button{
-width:100%;
-margin-top:.6rem;
-background:#fff;
-color:#000;
-border:none;
-padding:.6rem;
-border-radius:20px;
-font-weight:600;
-cursor:pointer;
-transition:.2s
-}
-button:hover{transform:scale(.96)}
+.preview img,.result img{width:100%;border-radius:10px;margin-top:6px}
 
-.status{margin-top:.5rem;font-size:.7rem;color:#aaa;text-align:center}
-
-.result img{width:100%;border-radius:12px;margin-top:.5rem}
-
-.actions{display:none;margin-top:.6rem}
+.actions{margin-top:6px;display:none}
 .actions button{background:#111;border:1px solid #333;color:#fff}
 
-.history{
-margin-top:.8rem;
-display:grid;
-grid-template-columns:repeat(auto-fill,minmax(70px,1fr));
-gap:.4rem
-}
-.history img{
-width:100%;
-border-radius:6px;
-cursor:pointer;
-opacity:.7;
-transition:.2s
-}
-.history img:hover{opacity:1;transform:scale(1.05)}
+.history{display:grid;grid-template-columns:repeat(auto-fill,minmax(60px,1fr));gap:5px;margin-top:8px}
+.history img{width:100%;border-radius:6px}
 
-.modal{
-position:fixed;
-top:0;left:0;
-width:100%;height:100%;
-background:#000;
-display:none;
-justify-content:center;
-align-items:center
-}
+.modal{position:fixed;top:0;left:0;width:100%;height:100%;background:#000;display:none;justify-content:center;align-items:center}
 .modal img{max-width:90%;max-height:90%}
 
-.footer{text-align:center;margin-top:.8rem;font-size:.65rem;color:#555}
-
-@media(max-width:700px){
-.header h1{font-size:1.3rem}
-}
+.footer{text-align:center;font-size:.65rem;color:#555;margin-top:6px}
 </style>
 </head>
 <body>
@@ -111,48 +49,39 @@ align-items:center
 <p>feed garbage • get something usable</p>
 </div>
 
-<div class="grid">
-
-<div class="left">
 <div class="card">
 <div class="title">input</div>
 
 <div class="upload" id="upload">
 <i class="fas fa-cloud-upload-alt"></i>
-<p>drop your pathetic image here</p>
+<p>drop image</p>
 </div>
 
 <input type="file" id="file" hidden>
 
 <div class="preview" id="preview"></div>
 
-<textarea id="prompt" placeholder="type something useful... if you can"></textarea>
+<textarea id="prompt" placeholder="type prompt"></textarea>
 
 <button id="go">generate</button>
 
-<div class="status" id="status">waiting... don't disappoint</div>
-
-</div>
+<div class="status" id="status">idle</div>
 </div>
 
-<div class="right">
-<div class="card result">
+<div class="card">
 <div class="title">output</div>
 
-<div id="result">empty. just like your effort</div>
+<div class="result" id="result"></div>
 
 <div class="actions" id="tools">
 <button id="copy">copy image</button>
 </div>
 
 <div class="history" id="history"></div>
-
-</div>
-</div>
-
 </div>
 
 <div class="footer">Made with 🖕by NZ R</div>
+
 </div>
 
 <div class="modal" id="modal">
@@ -163,23 +92,20 @@ align-items:center
 const upload=document.getElementById("upload")
 const file=document.getElementById("file")
 const preview=document.getElementById("preview")
-const go=document.getElementById("go")
-const status=document.getElementById("status")
 const result=document.getElementById("result")
+const status=document.getElementById("status")
 const tools=document.getElementById("tools")
 const historyBox=document.getElementById("history")
 
 let uploaded=null
 let output=null
-
 const key="0be58d103f6f628f39a5ecda27e0f440"
 
 upload.onclick=()=>file.click()
 
 file.onchange=e=>{
 let f=e.target.files[0]
-if(!f){status.innerText="no file. wow";return}
-if(f.size>5*1024*1024){status.innerText="too big. use your brain";return}
+if(!f){status.innerText="no file";return}
 
 let r=new FileReader()
 r.onload=x=>preview.innerHTML=`<img src="${x.target.result}">`
@@ -189,29 +115,30 @@ uploadImg(f)
 }
 
 async function uploadImg(f){
-status.innerText="uploading... try not to break it"
+status.innerText="uploading..."
 let fd=new FormData()
 fd.append("key",key)
 fd.append("image",f)
+
 let res=await fetch("https://api.imgbb.com/1/upload",{method:"POST",body:fd})
 let data=await res.json()
 
 if(data.success){
 uploaded=data.data.url
-status.innerText="uploaded. finally did something right"
+status.innerText="uploaded"
 }else{
-status.innerText="upload failed. useless"
+status.innerText="failed"
 }
 }
 
-go.onclick=async()=>{
+document.getElementById("go").onclick=async()=>{
 let p=document.getElementById("prompt").value.trim()
 
-if(!uploaded){status.innerText="no image. genius";return}
-if(!p){status.innerText="no prompt. what do you expect? magic?";return}
+if(!uploaded){status.innerText="no image";return}
+if(!p){status.innerText="no prompt";return}
 
-status.innerText="processing... don't cry"
-result.innerHTML="working..."
+status.innerText="processing..."
+result.innerHTML=""
 tools.style.display="none"
 
 let url=`https://rifatapiv3.vercel.app/api/ai/nanopro?p=${encodeURIComponent(p)}&url=${encodeURIComponent(uploaded)}`
@@ -222,19 +149,34 @@ if(data.status){
 output=data.result
 result.innerHTML=`<img src="${output}" onclick="openModal('${output}')">`
 tools.style.display="block"
-status.innerText="done. surprisingly not terrible"
-
+status.innerText="done"
 saveHistory(output)
 }else{
-status.innerText="failed. not shocking"
+status.innerText="failed"
 }
 }
 
 async function copyImage(){
 if(!output){status.innerText="nothing to copy";return}
+
+try{
 let blob=await fetch(output).then(r=>r.blob())
-await navigator.clipboard.write([new ClipboardItem({[blob.type]:blob})])
-status.innerText="copied. now go away"
+await navigator.clipboard.write([
+new ClipboardItem({[blob.type]:blob})
+])
+status.innerText="copied"
+}catch{
+let img=document.createElement("img")
+img.src=output
+document.body.appendChild(img)
+let range=document.createRange()
+range.selectNode(img)
+window.getSelection().removeAllRanges()
+window.getSelection().addRange(range)
+document.execCommand("copy")
+document.body.removeChild(img)
+status.innerText="copied (fallback)"
+}
 }
 
 document.getElementById("copy").onclick=copyImage
@@ -242,7 +184,7 @@ document.getElementById("copy").onclick=copyImage
 function saveHistory(url){
 let arr=JSON.parse(localStorage.getItem("hist")||"[]")
 arr.unshift(url)
-arr=arr.slice(0,12)
+arr=arr.slice(0,10)
 localStorage.setItem("hist",JSON.stringify(arr))
 renderHistory()
 }
