@@ -35,10 +35,10 @@
             50% { opacity: 0.5; }
         }
 
-        @keyframes borderGlow {
-            0% { border-color: #2a2a2a; }
-            50% { border-color: #555; }
-            100% { border-color: #2a2a2a; }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
         }
 
         .app-container {
@@ -50,7 +50,13 @@
             border-radius: 2rem;
             padding: 1.8rem;
             box-shadow: 0 25px 45px -12px rgba(0,0,0,0.8), inset 0 1px 0 rgba(255,255,255,0.05);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             animation: fadeIn 0.5s ease-out;
+        }
+
+        .app-container:hover {
+            border-color: #3a3a3a;
+            box-shadow: 0 30px 55px -15px rgba(0,0,0,0.9);
         }
 
         .brand {
@@ -59,6 +65,7 @@
             border-bottom: 1px solid #2c2c2c;
             padding-bottom: 1rem;
         }
+
         .brand h1 {
             font-size: 2rem;
             letter-spacing: -0.02em;
@@ -67,15 +74,18 @@
             align-items: center;
             justify-content: center;
             gap: 0.75rem;
+            transition: transform 0.2s ease;
         }
+
+        .brand h1:hover {
+            transform: scale(1.02);
+        }
+
         .brand h1 i {
             font-size: 1.8rem;
             color: #e0e0e0;
-            transition: transform 0.3s ease;
         }
-        .brand h1 i:hover {
-            transform: rotate(15deg);
-        }
+
         .brand p {
             color: #aaa;
             font-size: 0.85rem;
@@ -88,10 +98,12 @@
             gap: 2rem;
             margin-top: 1rem;
         }
+
         .upload-panel {
             flex: 1.2;
             min-width: 240px;
         }
+
         .preview-panel {
             flex: 1;
             min-width: 260px;
@@ -105,11 +117,12 @@
             margin-bottom: 1.8rem;
             transition: all 0.3s ease;
         }
+
         .card:hover {
+            border-color: #3f3f3f;
             transform: translateY(-2px);
-            border-color: #3a3a3a;
-            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.5);
         }
+
         .card-title {
             font-size: 1.25rem;
             font-weight: 500;
@@ -120,6 +133,7 @@
             border-left: 3px solid #ffffff;
             padding-left: 0.75rem;
         }
+
         .card-title i {
             font-size: 1.2rem;
             color: #ddd;
@@ -135,35 +149,42 @@
             transition: all 0.3s ease;
             margin-bottom: 1.2rem;
         }
+
         .upload-area:hover {
             border-color: #ffffff;
             background: #151515;
-            transform: scale(1.02);
+            transform: scale(0.99);
         }
+
         .upload-area i {
             font-size: 2.8rem;
             color: #ccc;
             margin-bottom: 0.8rem;
-            transition: transform 0.3s ease;
+            transition: transform 0.2s ease;
         }
+
         .upload-area:hover i {
-            transform: translateY(-5px);
+            transform: scale(1.1);
         }
+
         .upload-area p {
             font-size: 0.9rem;
             color: #bbb;
         }
+
         .file-input {
             display: none;
         }
+
         .image-preview {
             margin-top: 1rem;
             background: #080808;
             border-radius: 1rem;
             padding: 0.5rem;
             text-align: center;
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
         }
+
         .image-preview img {
             max-width: 100%;
             max-height: 220px;
@@ -171,11 +192,13 @@
             border: 1px solid #2a2a2a;
             object-fit: contain;
             background: #000;
-            transition: transform 0.3s ease;
+            transition: transform 0.2s ease;
         }
+
         .image-preview img:hover {
             transform: scale(1.02);
         }
+
         .img-placeholder {
             color: #666;
             font-size: 0.8rem;
@@ -185,6 +208,7 @@
         .prompt-group {
             margin: 1rem 0 0.8rem;
         }
+
         .prompt-group label {
             font-size: 0.85rem;
             font-weight: 500;
@@ -192,6 +216,7 @@
             margin-bottom: 0.5rem;
             color: #ccc;
         }
+
         .prompt-input {
             width: 100%;
             background: #050505;
@@ -201,15 +226,16 @@
             font-size: 0.95rem;
             color: #fff;
             font-family: inherit;
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
             resize: vertical;
         }
+
         .prompt-input:focus {
             outline: none;
             border-color: #ffffff;
             box-shadow: 0 0 0 2px #3a3a3a;
-            transform: translateY(-1px);
         }
+
         .btn-generate {
             width: 100%;
             background: #ffffff;
@@ -224,17 +250,19 @@
             justify-content: center;
             gap: 0.7rem;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
             margin-top: 0.2rem;
         }
+
         .btn-generate:hover {
             background: #e6e6e6;
             transform: scale(0.98);
-            box-shadow: 0 5px 15px rgba(255,255,255,0.1);
         }
+
         .btn-generate:active {
             transform: scale(0.96);
         }
+
         .btn-generate i {
             font-size: 1rem;
             color: #000;
@@ -246,13 +274,20 @@
             text-align: center;
             padding: 1rem;
             border: 1px solid #2c2c2c;
+            transition: all 0.3s ease;
         }
+
+        .result-card:hover {
+            border-color: #3f3f3f;
+        }
+
         .result-image-wrapper {
             position: relative;
             display: inline-block;
             width: 100%;
             cursor: pointer;
         }
+
         .result-image {
             width: 100%;
             border-radius: 1rem;
@@ -262,11 +297,12 @@
             border: 1px solid #2b2b2b;
             transition: all 0.3s ease;
         }
+
         .result-image:hover {
-            transform: scale(1.02);
-            border-color: #fff;
-            box-shadow: 0 0 20px rgba(255,255,255,0.1);
+            transform: scale(1.01);
+            border-color: #ffffff;
         }
+
         .preview-badge {
             margin-top: 0.6rem;
             font-size: 0.75rem;
@@ -275,6 +311,7 @@
             gap: 1rem;
             color: #aaa;
         }
+
         .preview-badge span {
             background: #1c1c1c;
             padding: 0.25rem 0.8rem;
@@ -282,18 +319,15 @@
             display: inline-flex;
             align-items: center;
             gap: 0.4rem;
-            transition: all 0.3s ease;
         }
-        .preview-badge span:hover {
-            background: #2a2a2a;
-            transform: translateX(3px);
-        }
+
         .download-area {
             margin-top: 1rem;
             display: flex;
             gap: 0.8rem;
             justify-content: center;
         }
+
         .btn-download, .btn-preview-trigger {
             background: transparent;
             border: 1px solid #3f3f3f;
@@ -303,17 +337,19 @@
             font-size: 0.85rem;
             color: #f0f0f0;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
         }
+
         .btn-download:hover, .btn-preview-trigger:hover {
             background: #1f1f1f;
             border-color: #ffffff;
             color: white;
-            transform: translateY(-2px);
+            transform: translateY(-1px);
         }
+
         .spinner {
             display: inline-block;
             width: 18px;
@@ -323,15 +359,18 @@
             border-radius: 50%;
             animation: spin 0.7s linear infinite;
         }
+
         .spinner-white {
             border-top: 2px solid #fff;
             border: 2px solid rgba(255,255,255,0.2);
             border-top-color: #fff;
         }
+
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
+
         .status-msg {
             background: #121212;
             border-radius: 2rem;
@@ -341,9 +380,10 @@
             margin-top: 1rem;
             color: #aaa;
             border-left: 2px solid #333;
-            transition: all 0.3s ease;
-            animation: fadeIn 0.3s ease;
+            transition: all 0.2s ease;
+            animation: fadeIn 0.3s ease-out;
         }
+
         .modal-preview {
             display: none;
             position: fixed;
@@ -356,15 +396,18 @@
             justify-content: center;
             align-items: center;
             cursor: pointer;
-            animation: fadeIn 0.3s ease;
+            animation: fadeIn 0.2s ease-out;
         }
+
         .modal-preview.active {
             display: flex;
         }
+
         .modal-content {
             max-width: 90vw;
             max-height: 90vh;
         }
+
         .modal-content img {
             width: auto;
             max-width: 100%;
@@ -372,8 +415,9 @@
             border-radius: 1rem;
             border: 1px solid #333;
             box-shadow: 0 0 40px rgba(0,0,0,0.5);
-            transition: transform 0.3s ease;
+            transition: transform 0.2s ease;
         }
+
         .close-modal {
             position: absolute;
             top: 20px;
@@ -383,11 +427,11 @@
             background: none;
             border: none;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: transform 0.2s ease;
         }
+
         .close-modal:hover {
-            transform: scale(1.2);
-            color: #ff0000;
+            transform: scale(1.1);
         }
 
         .footer {
@@ -395,16 +439,17 @@
             text-align: center;
             padding: 1rem;
             border-top: 1px solid #1f1f1f;
-            font-size: 0.8rem;
-            color: #666;
-            transition: all 0.3s ease;
+            font-size: 0.75rem;
+            color: #555;
+            letter-spacing: 0.5px;
         }
-        .footer:hover {
+
+        .footer span {
+            transition: color 0.2s ease;
+        }
+
+        .footer:hover span {
             color: #888;
-        }
-        .footer i {
-            color: #ff4444;
-            animation: pulse 1.5s infinite;
         }
 
         @media (max-width: 720px) {
@@ -426,6 +471,10 @@
             opacity: 0.6;
             cursor: not-allowed;
             transform: none;
+        }
+
+        .error-shake {
+            animation: shake 0.4s ease-in-out;
         }
     </style>
 </head>
@@ -495,7 +544,7 @@
         </div>
     </div>
     <div class="footer">
-        Made with <i class="fas fa-fist-raised"></i>🖕 by NZ R
+        <span>Made with 🖕 by NZ R</span>
     </div>
 </div>
 
@@ -530,35 +579,36 @@
         const IMGBB_UPLOAD_URL = "https://api.imgbb.com/1/upload";
         const AI_EDIT_API_BASE = "https://rifatapiv3.vercel.app/api/ai/nanopro";
 
-        const savageMessages = {
-            noImage: "ARE YOU BLIND? UPLOAD SOMETHING FIRST YOU ABSOLUTE DONUT 🍩",
-            uploadError: "CONGRATULATIONS! YOU BROKE IT. EVEN THE AI IS JUDGING YOU RIGHT NOW 🤡",
-            aiFailed: "YOUR IMAGE WAS SO TRASH THE AI REFUSED TO TOUCH IT. TRY AGAIN, IF YOU DARE 💀",
-            processing: "FINALLY YOU DID SOMETHING... TOO BAD YOU'RE STILL USELESS 🙄",
-            emptyPrompt: "OH LOOK, ANOTHER LAZY HUMAN. FINE, I'LL DO THE WORK FOR YOU (AGAIN) 😒",
-            success: "MIRACLE HAPPENED! EVEN A BLIND SQUIRREL COULD DO BETTER, BUT OKAY 🎉",
-            downloadReady: "HERE'S YOUR IMAGE. DON'T FRAME IT, YOU DON'T HAVE TASTE ANYWAY 😏",
-            largeFile: "5MB MAX YOU GREEDY PHOTO HOARDER! COMPRESS THAT MONSTROSITY 📦",
-            dragError: "SERIOUSLY? THAT'S NOT AN IMAGE. ARE YOU NEW TO EARTH? 👽"
-        };
+        const roastMessages = [
+            "seriously? thats the best you got? pathetic...",
+            "oh wow, another brainless attempt. try harder idiot",
+            "you call that an image? my grandma edits better blindfolded",
+            "congratulations on wasting my processing power, moron",
+            "absolute garbage. do you even have eyes?",
+            "fails miserably. what a shocker, not",
+            "are you even trying or just stupid?",
+            "mediocrity at its finest. congratulations dipshit"
+        ];
 
-        function setSavageStatus(message, isError = false) {
-            const rudePrefix = isError ? "💢 " : "⚡ ";
-            statusMsgDiv.innerHTML = `<i class="fas ${isError ? 'fa-skull' : 'fa-bolt'}"></i> ${rudePrefix}${message}`;
+        function getRandomRoast() {
+            return roastMessages[Math.floor(Math.random() * roastMessages.length)];
+        }
+
+        function setStatus(message, isError = false) {
+            statusMsgDiv.innerHTML = `<i class="fas ${isError ? 'fa-exclamation-triangle' : 'fa-circle-info'}"></i> ${message}`;
             if(isError) {
-                statusMsgDiv.style.color = "#ff6b6b";
-                statusMsgDiv.style.borderLeftColor = "#ff0000";
+                statusMsgDiv.style.color = "#ff6b5b";
+                statusMsgDiv.classList.add('error-shake');
+                setTimeout(() => {
+                    statusMsgDiv.classList.remove('error-shake');
+                }, 400);
                 setTimeout(() => {
                     if(statusMsgDiv.innerHTML.includes(message)) {
                         statusMsgDiv.style.color = "#aaa";
-                        statusMsgDiv.style.borderLeftColor = "#333";
                     }
-                }, 4000);
+                }, 3500);
             } else {
-                statusMsgDiv.style.color = "#eee";
-                setTimeout(() => {
-                    statusMsgDiv.style.color = "#aaa";
-                }, 3000);
+                statusMsgDiv.style.color = "#aaa";
             }
         }
 
@@ -577,7 +627,7 @@
             formData.append("key", IMGBB_API_KEY);
             formData.append("image", file);
             try {
-                setSavageStatus("UPLOADING... HOPE IT'S NOT A SELFIE 🤮");
+                setStatus("uploading to image host... dont screw this up");
                 const response = await fetch(IMGBB_UPLOAD_URL, {
                     method: "POST",
                     body: formData
@@ -585,14 +635,14 @@
                 const data = await response.json();
                 if(data && data.success && data.data && data.data.url) {
                     const directUrl = data.data.url;
-                    setSavageStatus("IMAGE HOSTED. DON'T SCREW UP THE NEXT STEP 😤");
+                    setStatus("image uploaded. finally you did something right");
                     return directUrl;
                 } else {
-                    throw new Error(data.error?.message || "upload failed");
+                    throw new Error(data.error?.message || "upload failed you moron");
                 }
             } catch(err) {
                 console.error(err);
-                throw new Error(savageMessages.uploadError);
+                throw new Error("imgbb upload error: " + err.message + " you useless creature");
             }
         }
 
@@ -602,18 +652,18 @@
             const encodedImageUrl = encodeURIComponent(imageUrl);
             const apiUrl = `${AI_EDIT_API_BASE}?p=${encodedPrompt}&url=${encodedImageUrl}`;
             try {
-                setSavageStatus(savageMessages.processing);
+                setStatus("calling AI engine... praying it works for your dumb ass");
                 const response = await fetch(apiUrl);
                 const result = await response.json();
                 if(result && result.status === true && result.result && typeof result.result === "string") {
                     return result.result;
                 } else {
-                    let errMsg = result.error || "api returned unexpected response";
+                    let errMsg = result.error || "api returned garbage response";
                     throw new Error(errMsg);
                 }
             } catch(err) {
                 console.error(err);
-                throw new Error(savageMessages.aiFailed);
+                throw new Error("AI edit collapsed: " + err.message + " maybe try being less incompetent");
             }
         }
 
@@ -621,7 +671,7 @@
             resultArea.innerHTML = `
                 <div style="display:flex; justify-content:center; align-items:center; gap:0.8rem; background:#0f0f0f; padding:2rem; border-radius:1.2rem;">
                     <div class="spinner spinner-white" style="border-top-color:#aaa;"></div>
-                    <span style="color:#ccc;">SMOKING THE IMAGE... WAIT 🚬</span>
+                    <span style="color:#ccc;">generating AI edit ... dont hold your breath</span>
                 </div>
             `;
             downloadTools.style.display = "none";
@@ -635,7 +685,7 @@
                     <img src="${imageUrl}" alt="edited result" class="result-image" id="resultImg">
                 </div>
                 <div class="preview-badge">
-                    <span><i class="fas fa-vector-square"></i> AI REFINED · MONOCHROME</span>
+                    <span><i class="fas fa-vector-square"></i> AI refined · at least i tried</span>
                 </div>
             `;
             downloadTools.style.display = "flex";
@@ -646,7 +696,7 @@
                     openModalWithImage(imageUrl);
                 });
             }
-            setSavageStatus(savageMessages.success);
+            setStatus("image generated. dont act like you did the hard work");
         }
 
         function openModalWithImage(src) {
@@ -654,13 +704,14 @@
             modalImg.src = src;
             modal.classList.add('active');
         }
+
         function closeModal() {
             modal.classList.remove('active');
         }
 
         function downloadCurrentImage() {
             if(!currentGeneratedResultUrl) {
-                setSavageStatus("NOTHING TO DOWNLOAD, YOU ABSOLUTE NOOB", true);
+                setStatus("nothing to download you blind idiot", true);
                 return;
             }
             const link = document.createElement('a');
@@ -670,38 +721,40 @@
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
-            setSavageStatus(savageMessages.downloadReady);
+            setStatus("download started. try not to lose it");
         }
 
         async function onGenerate() {
             if(isProcessing) {
-                setSavageStatus("I'M ALREADY WORKING, HAVE SOME PATIENCE YOU IMPATIENT GREMLIN", true);
+                setStatus("still processing you impatient fool", true);
                 return;
             }
             if(!currentUploadedImageUrl) {
-                setSavageStatus(savageMessages.noImage, true);
+                setStatus("no image selected. are you blind or just stupid?", true);
                 return;
             }
             const prompt = promptTextarea.value;
             if(!prompt || prompt.trim() === "") {
-                setSavageStatus(savageMessages.emptyPrompt, false);
+                setStatus("empty prompt? fine, i'll do the work for you. lazy bastard", false);
             }
             isProcessing = true;
             generateBtn.disabled = true;
-            generateBtn.innerHTML = `<div class="spinner" style="border-top-color:#000;"></div> ROASTING YOUR IMAGE...`;
+            generateBtn.innerHTML = `<div class="spinner" style="border-top-color:#000;"></div> processing... dont annoy me`;
             showLoadingOnResult();
 
             try {
                 const resultImageUrl = await callImageEditAPI(currentUploadedImageUrl, prompt);
                 if(resultImageUrl && resultImageUrl.startsWith("http")) {
                     displayResultImage(resultImageUrl);
+                    setStatus("done. try not to screw up next time");
                 } else {
-                    throw new Error("invalid result");
+                    throw new Error("invalid result url from API");
                 }
             } catch(error) {
                 console.error(error);
-                setSavageStatus(savageMessages.aiFailed, true);
-                resultArea.innerHTML = `<div class="img-placeholder" style="color:#ff6b6b;"><i class="fas fa-dumpster-fire"></i> AI TOOK ONE LOOK AND RAN AWAY. TRY SOMETHING LESS PATHETIC</div>`;
+                const roast = getRandomRoast();
+                setStatus(`${roast} - ${error.message}`, true);
+                resultArea.innerHTML = `<div class="img-placeholder" style="color:#ff6b5b;"><i class="fas fa-skull-crosswalk"></i> generation failed. maybe try something else moron</div>`;
                 downloadTools.style.display = "none";
                 currentGeneratedResultUrl = null;
             } finally {
@@ -714,31 +767,31 @@
         async function handleFileSelection(file) {
             if(!file) return;
             if(file.size > 5 * 1024 * 1024) {
-                setSavageStatus(savageMessages.largeFile, true);
+                setStatus("file too large. you really think i can handle that garbage? max 5MB", true);
                 return;
             }
             showUploadPreview(file);
-            setSavageStatus("UPLOADING YOUR MEDIOCRE IMAGE...");
+            setStatus("uploading... try not to interrupt");
             try {
                 const directUrl = await uploadToImgbb(file);
                 currentUploadedImageUrl = directUrl;
-                setSavageStatus(`IMAGE LOADED. DON'T MESS THIS UP, ROOKIE`);
+                setStatus(`image ready. url shortened: ${directUrl.substring(0, 40)}... dont lose it`);
                 const existingPreview = previewContainer.querySelector('img');
                 if(existingPreview) {
                     let badgeSpan = document.createElement('div');
                     badgeSpan.style.fontSize = "0.7rem";
                     badgeSpan.style.marginTop = "0.5rem";
                     badgeSpan.style.color = "#aaa";
-                    badgeSpan.innerHTML = '<i class="fas fa-check-circle"></i> HOSTED ✓';
+                    badgeSpan.innerHTML = '<i class="fas fa-link"></i> hosted ✓';
                     if(!previewContainer.querySelector('.hosted-badge')) {
                         badgeSpan.className = "hosted-badge";
                         previewContainer.appendChild(badgeSpan);
                     }
                 }
             } catch(err) {
-                setSavageStatus(savageMessages.uploadError, true);
+                setStatus(`upload failure: ${err.message}`, true);
                 currentUploadedImageUrl = null;
-                previewContainer.innerHTML = `<div class="img-placeholder"><i class="fas fa-exclamation-triangle"></i> UPLOAD FAILED, TRY A REAL IMAGE NEXT TIME</div>`;
+                previewContainer.innerHTML = `<div class="img-placeholder"><i class="fas fa-exclamation-triangle"></i> upload failed. try again if you dare</div>`;
             }
         }
 
@@ -773,7 +826,7 @@
                 if(file.type.startsWith('image/')) {
                     handleFileSelection(file);
                 } else {
-                    setSavageStatus(savageMessages.dragError, true);
+                    setStatus("dropped something thats not an image. are you dumb?", true);
                 }
             }
         });
@@ -783,7 +836,7 @@
             if(currentGeneratedResultUrl) {
                 openModalWithImage(currentGeneratedResultUrl);
             } else {
-                setSavageStatus("NOTHING TO PREVIEW, LOSER. GENERATE SOMETHING FIRST", true);
+                setStatus("nothing to preview. generate something first you impatient fool", true);
             }
         });
         downloadBtn.addEventListener('click', downloadCurrentImage);
@@ -793,7 +846,7 @@
         });
 
         promptTextarea.value = "make it black and white, deep shadows, artistic monochrome";
-        setSavageStatus("READY TO WORK. DON'T WASTE MY TIME WITH UGLY IMAGES");
+        setStatus("ready. upload an image and maybe you wont screw this up");
     })();
 </script>
 </body>
