@@ -1,749 +1,163 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>MONOCHROME | AI FORGE - SAVAGE EDITION</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            background: #000000;
-            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
-            color: #fff;
-            line-height: 1.5;
-            padding: 1.5rem;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .app-container {
-            max-width: 1280px;
-            width: 100%;
-            margin: 0 auto;
-            background: #0a0a0a;
-            border: 1px solid #2a2a2a;
-            border-radius: 2rem;
-            padding: 1.8rem;
-            box-shadow: 0 25px 45px -12px rgba(0,0,0,0.8), inset 0 1px 0 rgba(255,255,255,0.05);
-            transition: all 0.2s ease;
-        }
-
-        .brand {
-            text-align: center;
-            margin-bottom: 2rem;
-            border-bottom: 1px solid #2c2c2c;
-            padding-bottom: 1rem;
-        }
-        .brand h1 {
-            font-size: 2rem;
-            letter-spacing: -0.02em;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.75rem;
-        }
-        .brand h1 i {
-            font-size: 1.8rem;
-            color: #e0e0e0;
-        }
-        .brand p {
-            color: #aaa;
-            font-size: 0.85rem;
-            margin-top: 0.4rem;
-        }
-
-        .workflow {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 2rem;
-            margin-top: 1rem;
-        }
-        .upload-panel {
-            flex: 1.2;
-            min-width: 240px;
-        }
-        .preview-panel {
-            flex: 1;
-            min-width: 260px;
-        }
-
-        .card {
-            background: #111111;
-            border: 1px solid #2b2b2b;
-            border-radius: 1.5rem;
-            padding: 1.5rem;
-            margin-bottom: 1.8rem;
-            transition: 0.2s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-        }
-        .card:hover {
-            border-color: #3f3f3f;
-        }
-        .card-title {
-            font-size: 1.25rem;
-            font-weight: 500;
-            margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 0.6rem;
-            border-left: 3px solid #ffffff;
-            padding-left: 0.75rem;
-        }
-        .card-title i {
-            font-size: 1.2rem;
-            color: #ddd;
-        }
-
-        .upload-area {
-            border: 2px dashed #3a3a3a;
-            background: #0c0c0c;
-            border-radius: 1.2rem;
-            padding: 1.8rem 1rem;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            margin-bottom: 1.2rem;
-        }
-        .upload-area:hover {
-            border-color: #ffffff;
-            background: #151515;
-            transform: scale(0.99);
-        }
-        .upload-area i {
-            font-size: 2.8rem;
-            color: #ccc;
-            margin-bottom: 0.8rem;
-        }
-        .upload-area p {
-            font-size: 0.9rem;
-            color: #bbb;
-        }
-        .file-input {
-            display: none;
-        }
-        .image-preview {
-            margin-top: 1rem;
-            background: #080808;
-            border-radius: 1rem;
-            padding: 0.5rem;
-            text-align: center;
-        }
-        .image-preview img {
-            max-width: 100%;
-            max-height: 220px;
-            border-radius: 0.75rem;
-            border: 1px solid #2a2a2a;
-            object-fit: contain;
-            background: #000;
-        }
-        .img-placeholder {
-            color: #666;
-            font-size: 0.8rem;
-            padding: 1rem;
-        }
-
-        .prompt-group {
-            margin: 1rem 0 0.8rem;
-        }
-        .prompt-group label {
-            font-size: 0.85rem;
-            font-weight: 500;
-            display: block;
-            margin-bottom: 0.5rem;
-            color: #ccc;
-        }
-        .prompt-input {
-            width: 100%;
-            background: #050505;
-            border: 1px solid #2e2e2e;
-            border-radius: 1rem;
-            padding: 0.9rem 1rem;
-            font-size: 0.95rem;
-            color: #fff;
-            font-family: inherit;
-            transition: 0.2s;
-            resize: vertical;
-        }
-        .prompt-input:focus {
-            outline: none;
-            border-color: #ffffff;
-            box-shadow: 0 0 0 1px #3a3a3a;
-        }
-        .btn-generate {
-            width: 100%;
-            background: #ffffff;
-            border: none;
-            padding: 0.9rem;
-            border-radius: 2rem;
-            font-weight: 600;
-            font-size: 1rem;
-            color: #000000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.7rem;
-            cursor: pointer;
-            transition: 0.2s;
-            margin-top: 0.2rem;
-        }
-        .btn-generate:hover {
-            background: #e6e6e6;
-            transform: scale(0.98);
-        }
-        .btn-generate:active {
-            transform: scale(0.96);
-        }
-        .btn-generate i {
-            font-size: 1rem;
-            color: #000;
-        }
-
-        .result-card {
-            background: #0b0b0b;
-            border-radius: 1.5rem;
-            text-align: center;
-            padding: 1rem;
-            border: 1px solid #2c2c2c;
-        }
-        .result-image-wrapper {
-            position: relative;
-            display: inline-block;
-            width: 100%;
-            cursor: pointer;
-            transition: 0.1s;
-        }
-        .result-image {
-            width: 100%;
-            border-radius: 1rem;
-            max-height: 320px;
-            object-fit: contain;
-            background: #000000;
-            border: 1px solid #2b2b2b;
-            transition: transform 0.2s ease;
-        }
-        .result-image:hover {
-            transform: scale(1.01);
-        }
-        .preview-badge {
-            margin-top: 0.6rem;
-            font-size: 0.75rem;
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            color: #aaa;
-        }
-        .preview-badge span {
-            background: #1c1c1c;
-            padding: 0.25rem 0.8rem;
-            border-radius: 2rem;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.4rem;
-        }
-        .download-area {
-            margin-top: 1rem;
-            display: flex;
-            gap: 0.8rem;
-            justify-content: center;
-        }
-        .btn-download, .btn-preview-trigger {
-            background: transparent;
-            border: 1px solid #3f3f3f;
-            padding: 0.6rem 1.2rem;
-            border-radius: 2rem;
-            font-weight: 500;
-            font-size: 0.85rem;
-            color: #f0f0f0;
-            cursor: pointer;
-            transition: 0.2s;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        .btn-download:hover, .btn-preview-trigger:hover {
-            background: #1f1f1f;
-            border-color: #ffffff;
-            color: white;
-            transform: translateY(-2px);
-        }
-        .spinner {
-            display: inline-block;
-            width: 18px;
-            height: 18px;
-            border: 2px solid rgba(0,0,0,0.2);
-            border-top: 2px solid #000;
-            border-radius: 50%;
-            animation: spin 0.7s linear infinite;
-        }
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        .status-msg {
-            background: #121212;
-            border-radius: 2rem;
-            padding: 0.6rem 1rem;
-            text-align: center;
-            font-size: 0.8rem;
-            margin-top: 1rem;
-            border-left: 2px solid #333;
-            transition: 0.1s;
-            font-weight: 500;
-        }
-        .modal-preview {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.96);
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-        }
-        .modal-preview.active {
-            display: flex;
-            animation: fadeIn 0.2s ease;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        .modal-content {
-            max-width: 90vw;
-            max-height: 90vh;
-        }
-        .modal-content img {
-            width: auto;
-            max-width: 100%;
-            max-height: 90vh;
-            border-radius: 1rem;
-            border: 1px solid #333;
-            box-shadow: 0 0 40px rgba(0,0,0,0.5);
-        }
-        .close-modal {
-            position: absolute;
-            top: 20px;
-            right: 30px;
-            font-size: 2rem;
-            color: white;
-            background: none;
-            border: none;
-            cursor: pointer;
-        }
-        .footer-roast {
-            margin-top: 1.2rem;
-            text-align: center;
-            font-size: 0.75rem;
-            color: #3a3a3a;
-            border-top: 1px solid #1f1f1f;
-            padding-top: 1rem;
-            width: 100%;
-            max-width: 1280px;
-            margin-left: auto;
-            margin-right: auto;
-            letter-spacing: 0.3px;
-        }
-        .footer-roast span {
-            color: #555;
-        }
-
-        @media (max-width: 720px) {
-            body {
-                padding: 0.8rem;
-            }
-            .app-container {
-                padding: 1rem;
-            }
-            .brand h1 {
-                font-size: 1.5rem;
-            }
-            .card-title {
-                font-size: 1rem;
-            }
-        }
-
-        button:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-            transform: none;
-        }
-        hr {
-            border-color: #252525;
-            margin: 0.5rem 0;
-        }
-        .rude-highlight {
-            color: #ffb7a7;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MONOCHROME | AI Forge</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#000;font-family:Inter,system-ui;color:#fff;display:flex;justify-content:center;align-items:center;min-height:100vh;padding:1rem}
+.app{max-width:1200px;width:100%;background:#0a0a0a;border:1px solid #2a2a2a;border-radius:2rem;padding:1.5rem;box-shadow:0 25px 60px rgba(0,0,0,.9);animation:fade .5s ease}
+@keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.brand{text-align:center;margin-bottom:1.5rem;border-bottom:1px solid #2c2c2c;padding-bottom:.8rem}
+.brand h1{font-size:1.8rem;display:flex;justify-content:center;gap:.5rem}
+.brand p{font-size:.8rem;color:#888}
+.flex{display:flex;flex-wrap:wrap;gap:1.5rem}
+.left{flex:1.2;min-width:250px}
+.right{flex:1;min-width:260px}
+.card{background:#111;border:1px solid #2b2b2b;border-radius:1.3rem;padding:1.2rem;transition:.2s}
+.card:hover{transform:translateY(-2px)}
+.title{font-size:1rem;margin-bottom:.8rem;border-left:3px solid #fff;padding-left:.5rem}
+.upload{border:2px dashed #333;padding:1.5rem;text-align:center;border-radius:1rem;cursor:pointer;transition:.2s}
+.upload:hover{border-color:#fff;background:#151515}
+.preview img{max-width:100%;border-radius:.6rem;margin-top:.8rem}
+textarea{width:100%;background:#050505;border:1px solid #2e2e2e;border-radius:1rem;padding:.7rem;color:#fff;margin-top:.7rem}
+button{width:100%;margin-top:.8rem;background:#fff;color:#000;border:none;padding:.7rem;border-radius:2rem;font-weight:600;cursor:pointer;transition:.2s}
+button:hover{transform:scale(.96)}
+.status{margin-top:.8rem;font-size:.75rem;color:#aaa;text-align:center}
+.result img{width:100%;border-radius:1rem;margin-top:.6rem}
+.actions{display:none;margin-top:.8rem;gap:.5rem;justify-content:center}
+.actions button{width:auto;padding:.5rem 1rem;font-size:.8rem;background:transparent;border:1px solid #444;color:#fff}
+.actions button:hover{background:#222}
+.modal{position:fixed;top:0;left:0;width:100%;height:100%;background:#000;display:none;justify-content:center;align-items:center}
+.modal img{max-width:90%;max-height:90%}
+.footer{text-align:center;margin-top:1rem;font-size:.7rem;color:#666}
+</style>
 </head>
 <body>
 
-<div class="app-container">
-    <div class="brand">
-        <h1>
-            <i class="fas fa-drafting-compass"></i> 
-            MONOCHROME · AI FORGE
-        </h1>
-        <p>savage edits only - your taste is probably trash but we fix it</p>
-    </div>
-
-    <div class="workflow">
-        <div class="upload-panel">
-            <div class="card">
-                <div class="card-title">
-                    <i class="fas fa-cloud-upload-alt"></i>
-                    <span>source garbage</span>
-                </div>
-                <div class="upload-area" id="uploadTrigger">
-                    <i class="fas fa-image"></i>
-                    <p>click or drop your pathetic file</p>
-                    <p style="font-size: 0.7rem; margin-top: 0.3rem;">PNG, JPG, WEBP up to 5MB - dont waste my time</p>
-                </div>
-                <input type="file" id="fileInput" class="file-input" accept="image/jpeg,image/png,image/webp,image/jpg">
-                <div class="image-preview" id="imagePreviewContainer">
-                    <div class="img-placeholder">
-                        <i class="fas fa-camera"></i> no image selected, genius
-                    </div>
-                </div>
-
-                <div class="prompt-group">
-                    <label><i class="fas fa-pen-fancy"></i> edit prompt (make it good)</label>
-                    <textarea class="prompt-input" id="promptText" rows="2" placeholder="e.g., 'make it black and white you idiot', 'add vintage grain before i lose it', 'high contrast monochrome or else'"></textarea>
-                </div>
-                <button class="btn-generate" id="generateBtn">
-                    <i class="fas fa-magic"></i> generate you fool
-                </button>
-                <div class="status-msg" id="statusMsg">
-                    <i class="fas fa-info-circle"></i> idle - do something useful
-                </div>
-            </div>
-        </div>
-
-        <div class="preview-panel">
-            <div class="card result-card">
-                <div class="card-title">
-                    <i class="fas fa-robot"></i>
-                    <span>AI output (dont screw it up)</span>
-                </div>
-                <div id="resultArea">
-                    <div class="img-placeholder" style="padding: 2rem;">
-                        <i class="fas fa-hourglass-half"></i> result better appear soon...
-                    </div>
-                </div>
-                <div class="download-area" id="downloadTools" style="display: none;">
-                    <button class="btn-preview-trigger" id="previewModalBtn">
-                        <i class="fas fa-expand"></i> preview (dont be scared)
-                    </button>
-                    <button class="btn-download" id="downloadBtn">
-                        <i class="fas fa-download"></i> save trash
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="footer-roast">
-    Made with 🖕by NZ R — don't forget your image sucks before AI fixed it.
+<div class="app">
+<div class="brand">
+<h1><i class="fas fa-drafting-compass"></i> MONOCHROME</h1>
+<p>upload • destroy • rebuild</p>
 </div>
 
-<div id="imageModal" class="modal-preview">
-    <button class="close-modal" id="closeModalBtn">&times;</button>
-    <div class="modal-content">
-        <img id="modalImg" alt="full preview" src="">
-    </div>
+<div class="flex">
+
+<div class="left">
+<div class="card">
+<div class="title">image</div>
+<div class="upload" id="up">drop your garbage image here</div>
+<input type="file" id="file" hidden>
+<div class="preview" id="preview"></div>
+<textarea id="prompt">make it black and white, dramatic shadows</textarea>
+<button id="go">generate</button>
+<div class="status" id="status">waiting for your dumb move</div>
+</div>
+</div>
+
+<div class="right">
+<div class="card result">
+<div class="title">result</div>
+<div id="result">nothing yet, obviously</div>
+<div class="actions" id="tools">
+<button id="view">preview</button>
+<button id="download">download</button>
+</div>
+</div>
+</div>
+
+</div>
+
+<div class="footer">Made with 🖕 by NZ R</div>
+</div>
+
+<div class="modal" id="modal">
+<img id="modalImg">
 </div>
 
 <script>
-    (function(){
-        const uploadTrigger = document.getElementById('uploadTrigger');
-        const fileInput = document.getElementById('fileInput');
-        const previewContainer = document.getElementById('imagePreviewContainer');
-        const promptTextarea = document.getElementById('promptText');
-        const generateBtn = document.getElementById('generateBtn');
-        const statusMsgDiv = document.getElementById('statusMsg');
-        const resultArea = document.getElementById('resultArea');
-        const downloadTools = document.getElementById('downloadTools');
-        const previewModalBtn = document.getElementById('previewModalBtn');
-        const downloadBtn = document.getElementById('downloadBtn');
-        const modal = document.getElementById('imageModal');
-        const modalImg = document.getElementById('modalImg');
-        const closeModalBtn = document.getElementById('closeModalBtn');
+const up=document.getElementById("up")
+const file=document.getElementById("file")
+const preview=document.getElementById("preview")
+const go=document.getElementById("go")
+const status=document.getElementById("status")
+const result=document.getElementById("result")
+const tools=document.getElementById("tools")
+const modal=document.getElementById("modal")
+const modalImg=document.getElementById("modalImg")
 
-        let currentUploadedImageUrl = null;
-        let currentGeneratedResultUrl = null;
-        let isProcessing = false;
+let uploaded=null
+let output=null
 
-        const IMGBB_API_KEY = "0be58d103f6f628f39a5ecda27e0f440";
-        const IMGBB_UPLOAD_URL = "https://api.imgbb.com/1/upload";
-        const AI_EDIT_API_BASE = "https://rifatapiv3.vercel.app/api/ai/nanopro";
+const key="0be58d103f6f628f39a5ecda27e0f440"
 
-        function setStatus(message, isError = false) {
-            statusMsgDiv.innerHTML = `<i class="fas ${isError ? 'fa-skull' : 'fa-fire'}"></i> ${message}`;
-            if(isError) {
-                statusMsgDiv.style.color = "#ff8a7a";
-                statusMsgDiv.style.borderLeftColor = "#ff4d4d";
-                setTimeout(() => {
-                    if(statusMsgDiv.innerHTML.includes(message)) {
-                        statusMsgDiv.style.color = "#aaa";
-                        statusMsgDiv.style.borderLeftColor = "#333";
-                    }
-                }, 4000);
-            } else {
-                statusMsgDiv.style.color = "#cdcdcd";
-                statusMsgDiv.style.borderLeftColor = "#555";
-            }
-        }
+up.onclick=()=>file.click()
 
-        function showUploadPreview(file) {
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                previewContainer.innerHTML = `
-                    <img src="${e.target.result}" alt="upload preview" style="max-width:100%; max-height:200px; border-radius:0.75rem; border:1px solid #333;">
-                    <div style="font-size:0.7rem; margin-top:6px; color:#777;">congrats you picked something, barely</div>
-                `;
-            };
-            reader.readAsDataURL(file);
-        }
+file.onchange=e=>{
+const f=e.target.files[0]
+if(!f)return
+if(f.size>5*1024*1024){status.innerText="too big. what are you even doing?";return}
+const r=new FileReader()
+r.onload=x=>{
+preview.innerHTML=`<img src="${x.target.result}">`
+}
+r.readAsDataURL(f)
+upload(f)
+}
 
-        async function uploadToImgbb(file) {
-            const formData = new FormData();
-            formData.append("key", IMGBB_API_KEY);
-            formData.append("image", file);
-            try {
-                setStatus("uploading your junk... dont choke");
-                const response = await fetch(IMGBB_UPLOAD_URL, {
-                    method: "POST",
-                    body: formData
-                });
-                const data = await response.json();
-                if(data && data.success && data.data && data.data.url) {
-                    const directUrl = data.data.url;
-                    setStatus("uploaded. shocking. ready for AI torment.");
-                    return directUrl;
-                } else {
-                    throw new Error(data.error?.message || "upload failed, your fault");
-                }
-            } catch(err) {
-                console.error(err);
-                throw new Error("imgbb failed: " + err.message + " - maybe learn how to use internet");
-            }
-        }
+async function upload(f){
+status.innerText="uploading... don't mess this up"
+let fd=new FormData()
+fd.append("key",key)
+fd.append("image",f)
+let res=await fetch("https://api.imgbb.com/1/upload",{method:"POST",body:fd})
+let data=await res.json()
+if(data.success){
+uploaded=data.data.url
+status.innerText="image ready. try not to ruin it"
+}else{
+status.innerText="upload failed. pathetic"
+}
+}
 
-        async function callImageEditAPI(imageUrl, userPrompt) {
-            let finalPrompt = userPrompt && userPrompt.trim() !== "" ? userPrompt.trim() : "make it black and white, high contrast monochrome style, do it aggressively";
-            if(finalPrompt.length < 3) finalPrompt = "black and white brutal contrast, do something useful";
-            const encodedPrompt = encodeURIComponent(finalPrompt);
-            const encodedImageUrl = encodeURIComponent(imageUrl);
-            const apiUrl = `${AI_EDIT_API_BASE}?p=${encodedPrompt}&url=${encodedImageUrl}`;
-            try {
-                setStatus("calling AI engine... hold your breath, maggot");
-                const response = await fetch(apiUrl);
-                const result = await response.json();
-                if(result && result.status === true && result.result && typeof result.result === "string") {
-                    return result.result;
-                } else {
-                    let errMsg = result.error || "API returned garbage, not my problem";
-                    throw new Error(errMsg);
-                }
-            } catch(err) {
-                console.error(err);
-                throw new Error("AI edit crashed: " + err.message + " maybe prompt was as stupid as you");
-            }
-        }
+go.onclick=async()=>{
+if(!uploaded){status.innerText="no image. genius";return}
+status.innerText="processing... try not to cry"
+result.innerHTML="thinking..."
+tools.style.display="none"
 
-        function showLoadingOnResult() {
-            resultArea.innerHTML = `
-                <div style="display:flex; justify-content:center; align-items:center; gap:0.8rem; background:#0f0f0f; padding:2rem; border-radius:1.2rem;">
-                    <div class="spinner" style="border-top-color:#aaa;"></div>
-                    <span style="color:#ccc;">processing your garbage... wait</span>
-                </div>
-            `;
-            downloadTools.style.display = "none";
-            currentGeneratedResultUrl = null;
-        }
+let p=document.getElementById("prompt").value||"black and white"
+let url=`https://rifatapiv3.vercel.app/api/ai/nanopro?p=${encodeURIComponent(p)}&url=${encodeURIComponent(uploaded)}`
+let res=await fetch(url)
+let data=await res.json()
 
-        function displayResultImage(imageUrl) {
-            currentGeneratedResultUrl = imageUrl;
-            resultArea.innerHTML = `
-                <div class="result-image-wrapper" id="resultImgWrapper">
-                    <img src="${imageUrl}" alt="edited result" class="result-image" id="resultImg">
-                </div>
-                <div class="preview-badge">
-                    <span><i class="fas fa-vector-square"></i> AI actually fixed your trash</span>
-                </div>
-            `;
-            downloadTools.style.display = "flex";
-            const resultImgElem = document.getElementById('resultImg');
-            if(resultImgElem) {
-                resultImgElem.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    openModalWithImage(imageUrl);
-                });
-            }
-            setStatus("generation done. dont act like you did something impressive.");
-        }
+if(data.status){
+output=data.result
+result.innerHTML=`<img src="${output}">`
+tools.style.display="flex"
+status.innerText="done. better than your original trash"
+}else{
+status.innerText="AI failed. just like you"
+}
+}
 
-        function openModalWithImage(src) {
-            if(!src) return;
-            modalImg.src = src;
-            modal.classList.add('active');
-        }
-        function closeModal() {
-            modal.classList.remove('active');
-        }
+document.getElementById("view").onclick=()=>{
+modal.style.display="flex"
+modalImg.src=output
+}
 
-        function downloadCurrentImage() {
-            if(!currentGeneratedResultUrl) {
-                setStatus("no image to download, you absolute waste of time", true);
-                return;
-            }
-            const link = document.createElement('a');
-            link.href = currentGeneratedResultUrl;
-            link.download = `ai_edit_${Date.now()}.png`;
-            link.target = '_blank';
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-            setStatus("download started. try not to lose it like your dignity.");
-        }
+modal.onclick=()=>modal.style.display="none"
 
-        async function onGenerate() {
-            if(isProcessing) {
-                setStatus("already processing. patience, you thick skull.", true);
-                return;
-            }
-            if(!currentUploadedImageUrl) {
-                setStatus("NO IMAGE. select a file first, you donkey.", true);
-                return;
-            }
-            const prompt = promptTextarea.value;
-            if(!prompt || prompt.trim() === "") {
-                setStatus("prompt empty? so you expect magic from nothing? fine, default will drag your ass.", false);
-            }
-            isProcessing = true;
-            generateBtn.disabled = true;
-            generateBtn.innerHTML = `<div class="spinner" style="border-top-color:#000;"></div> processing your mess...`;
-            showLoadingOnResult();
-
-            try {
-                const resultImageUrl = await callImageEditAPI(currentUploadedImageUrl, prompt);
-                if(resultImageUrl && resultImageUrl.startsWith("http")) {
-                    displayResultImage(resultImageUrl);
-                    setStatus("success. your image looks presentable now. you're welcome.");
-                } else {
-                    throw new Error("invalid result url from api. probably your bad luck.");
-                }
-            } catch(error) {
-                console.error(error);
-                setStatus(`FAILURE: ${error.message} - try not being incompetent`, true);
-                resultArea.innerHTML = `<div class="img-placeholder" style="color:#ff9180;"><i class="fas fa-skull-crosswalk"></i> generation failed. AI laughed at your request.</div>`;
-                downloadTools.style.display = "none";
-                currentGeneratedResultUrl = null;
-            } finally {
-                isProcessing = false;
-                generateBtn.disabled = false;
-                generateBtn.innerHTML = `<i class="fas fa-magic"></i> generate you fool`;
-            }
-        }
-
-        async function handleFileSelection(file) {
-            if(!file) {
-                setStatus("no file? you clicking for fun? get lost", true);
-                return;
-            }
-            if(file.size > 5 * 1024 * 1024) {
-                setStatus("file over 5MB. you think i have unlimited bandwidth? compress it, moron.", true);
-                return;
-            }
-            showUploadPreview(file);
-            setStatus("uploading to imgbb... dont hold your breath");
-            try {
-                const directUrl = await uploadToImgbb(file);
-                currentUploadedImageUrl = directUrl;
-                let shortUrl = directUrl.substring(0, 45) + (directUrl.length > 45 ? "..." : "");
-                setStatus(`image hosted. url: ${shortUrl} - try not to fail next step.`);
-                let existingBadge = previewContainer.querySelector('.hosted-badge');
-                if(!existingBadge) {
-                    let badgeSpan = document.createElement('div');
-                    badgeSpan.className = "hosted-badge";
-                    badgeSpan.style.fontSize = "0.7rem";
-                    badgeSpan.style.marginTop = "0.5rem";
-                    badgeSpan.style.color = "#aaa";
-                    badgeSpan.innerHTML = '<i class="fas fa-check-circle"></i> hosted, you did one thing right';
-                    previewContainer.appendChild(badgeSpan);
-                }
-            } catch(err) {
-                setStatus(`upload catastrophe: ${err.message} - maybe your firewall hates you`, true);
-                currentUploadedImageUrl = null;
-                previewContainer.innerHTML = `<div class="img-placeholder"><i class="fas fa-exclamation-triangle"></i> upload failed. retry or quit.</div>`;
-            }
-        }
-
-        fileInput.addEventListener('change', (e) => {
-            if(e.target.files && e.target.files.length) {
-                handleFileSelection(e.target.files[0]);
-            }
-        });
-
-        uploadTrigger.addEventListener('click', () => {
-            fileInput.click();
-        });
-
-        const dropZone = uploadTrigger;
-        dropZone.addEventListener('dragover', (e) => {
-            e.preventDefault();
-            dropZone.style.borderColor = "#ffffff";
-            dropZone.style.backgroundColor = "#181818";
-        });
-        dropZone.addEventListener('dragleave', (e) => {
-            e.preventDefault();
-            dropZone.style.borderColor = "#3a3a3a";
-            dropZone.style.backgroundColor = "#0c0c0c";
-        });
-        dropZone.addEventListener('drop', (e) => {
-            e.preventDefault();
-            dropZone.style.borderColor = "#3a3a3a";
-            dropZone.style.backgroundColor = "#0c0c0c";
-            const files = e.dataTransfer.files;
-            if(files.length) {
-                const file = files[0];
-                if(file.type.startsWith('image/')) {
-                    handleFileSelection(file);
-                } else {
-                    setStatus("that's not an image. are you blind?", true);
-                }
-            }
-        });
-
-        generateBtn.addEventListener('click', onGenerate);
-        previewModalBtn.addEventListener('click', () => {
-            if(currentGeneratedResultUrl) {
-                openModalWithImage(currentGeneratedResultUrl);
-            } else {
-                setStatus("no result to preview. generate something first you impatient fool.", true);
-            }
-        });
-        downloadBtn.addEventListener('click', downloadCurrentImage);
-        closeModalBtn.addEventListener('click', closeModal);
-        modal.addEventListener('click', (e) => {
-            if(e.target === modal) closeModal();
-        });
-
-        promptTextarea.value = "make it black and white, deep shadows, aggressive monochrome style";
-        setStatus("idle. pick an image if you dare. and dont screw the prompt.");
-    })();
+document.getElementById("download").onclick=()=>{
+let a=document.createElement("a")
+a.href=output
+a.download="ai.png"
+a.click()
+status.innerText="download it and leave"
+}
 </script>
+
 </body>
 </html>
