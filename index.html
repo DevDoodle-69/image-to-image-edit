@@ -3,74 +3,156 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MONOCHROME | AI Forge</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<title>VOID//FORGE</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:#000;font-family:Inter,system-ui;color:#fff;display:flex;justify-content:center;align-items:center;min-height:100vh;padding:1rem}
-.app{max-width:1200px;width:100%;background:#0a0a0a;border:1px solid #2a2a2a;border-radius:2rem;padding:1.5rem;box-shadow:0 25px 60px rgba(0,0,0,.9);animation:fade .5s ease}
-@keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
-.brand{text-align:center;margin-bottom:1.5rem;border-bottom:1px solid #2c2c2c;padding-bottom:.8rem}
-.brand h1{font-size:1.8rem;display:flex;justify-content:center;gap:.5rem}
-.brand p{font-size:.8rem;color:#888}
-.flex{display:flex;flex-wrap:wrap;gap:1.5rem}
-.left{flex:1.2;min-width:250px}
+body{background:#000;font-family:system-ui;color:#fff;min-height:100vh;display:flex;justify-content:center;padding:1rem}
+.app{max-width:1200px;width:100%;background:#0a0a0a;border:1px solid #222;border-radius:20px;padding:1rem;animation:fade .5s ease}
+@keyframes fade{from{opacity:0;transform:translateY(15px)}to{opacity:1;transform:translateY(0)}}
+
+.header{text-align:center;margin-bottom:1rem}
+.header h1{font-size:1.6rem;letter-spacing:.05em}
+.header p{font-size:.7rem;color:#777}
+
+.grid{display:flex;flex-wrap:wrap;gap:1rem}
+.left{flex:1.2;min-width:260px}
 .right{flex:1;min-width:260px}
-.card{background:#111;border:1px solid #2b2b2b;border-radius:1.3rem;padding:1.2rem;transition:.2s}
-.card:hover{transform:translateY(-2px)}
-.title{font-size:1rem;margin-bottom:.8rem;border-left:3px solid #fff;padding-left:.5rem}
-.upload{border:2px dashed #333;padding:1.5rem;text-align:center;border-radius:1rem;cursor:pointer;transition:.2s}
+
+.card{background:#111;border:1px solid #222;border-radius:15px;padding:1rem;transition:.2s}
+.card:hover{transform:translateY(-3px)}
+.title{font-size:.9rem;margin-bottom:.5rem;border-left:3px solid #fff;padding-left:.4rem}
+
+.upload{
+border:2px dashed #333;
+padding:1.5rem;
+text-align:center;
+border-radius:12px;
+cursor:pointer;
+transition:.2s
+}
 .upload:hover{border-color:#fff;background:#151515}
-.preview img{max-width:100%;border-radius:.6rem;margin-top:.8rem}
-textarea{width:100%;background:#050505;border:1px solid #2e2e2e;border-radius:1rem;padding:.7rem;color:#fff;margin-top:.7rem}
-button{width:100%;margin-top:.8rem;background:#fff;color:#000;border:none;padding:.7rem;border-radius:2rem;font-weight:600;cursor:pointer;transition:.2s}
+.upload i{font-size:2rem;color:#888;margin-bottom:.4rem}
+.upload p{font-size:.7rem;color:#777}
+
+.preview img{max-width:100%;border-radius:10px;margin-top:.5rem}
+
+textarea{
+width:100%;
+background:#050505;
+border:1px solid #222;
+border-radius:10px;
+padding:.6rem;
+color:#fff;
+margin-top:.5rem;
+font-size:.8rem
+}
+
+button{
+width:100%;
+margin-top:.6rem;
+background:#fff;
+color:#000;
+border:none;
+padding:.6rem;
+border-radius:20px;
+font-weight:600;
+cursor:pointer;
+transition:.2s
+}
 button:hover{transform:scale(.96)}
-.status{margin-top:.8rem;font-size:.75rem;color:#aaa;text-align:center}
-.result img{width:100%;border-radius:1rem;margin-top:.6rem}
-.actions{display:none;margin-top:.8rem;gap:.5rem;justify-content:center}
-.actions button{width:auto;padding:.5rem 1rem;font-size:.8rem;background:transparent;border:1px solid #444;color:#fff}
-.actions button:hover{background:#222}
-.modal{position:fixed;top:0;left:0;width:100%;height:100%;background:#000;display:none;justify-content:center;align-items:center}
+
+.status{margin-top:.5rem;font-size:.7rem;color:#aaa;text-align:center}
+
+.result img{width:100%;border-radius:12px;margin-top:.5rem}
+
+.actions{display:none;margin-top:.6rem}
+.actions button{background:#111;border:1px solid #333;color:#fff}
+
+.history{
+margin-top:.8rem;
+display:grid;
+grid-template-columns:repeat(auto-fill,minmax(70px,1fr));
+gap:.4rem
+}
+.history img{
+width:100%;
+border-radius:6px;
+cursor:pointer;
+opacity:.7;
+transition:.2s
+}
+.history img:hover{opacity:1;transform:scale(1.05)}
+
+.modal{
+position:fixed;
+top:0;left:0;
+width:100%;height:100%;
+background:#000;
+display:none;
+justify-content:center;
+align-items:center
+}
 .modal img{max-width:90%;max-height:90%}
-.footer{text-align:center;margin-top:1rem;font-size:.7rem;color:#666}
+
+.footer{text-align:center;margin-top:.8rem;font-size:.65rem;color:#555}
+
+@media(max-width:700px){
+.header h1{font-size:1.3rem}
+}
 </style>
 </head>
 <body>
 
 <div class="app">
-<div class="brand">
-<h1><i class="fas fa-drafting-compass"></i> MONOCHROME</h1>
-<p>upload • destroy • rebuild</p>
+
+<div class="header">
+<h1>VOID//FORGE</h1>
+<p>feed garbage • get something usable</p>
 </div>
 
-<div class="flex">
+<div class="grid">
 
 <div class="left">
 <div class="card">
-<div class="title">image</div>
-<div class="upload" id="up">drop your garbage image here</div>
+<div class="title">input</div>
+
+<div class="upload" id="upload">
+<i class="fas fa-cloud-upload-alt"></i>
+<p>drop your pathetic image here</p>
+</div>
+
 <input type="file" id="file" hidden>
+
 <div class="preview" id="preview"></div>
-<textarea id="prompt">make it black and white, dramatic shadows</textarea>
+
+<textarea id="prompt" placeholder="type something useful... if you can"></textarea>
+
 <button id="go">generate</button>
-<div class="status" id="status">waiting for your dumb move</div>
+
+<div class="status" id="status">waiting... don't disappoint</div>
+
 </div>
 </div>
 
 <div class="right">
 <div class="card result">
-<div class="title">result</div>
-<div id="result">nothing yet, obviously</div>
+<div class="title">output</div>
+
+<div id="result">empty. just like your effort</div>
+
 <div class="actions" id="tools">
-<button id="view">preview</button>
-<button id="download">download</button>
+<button id="copy">copy image</button>
 </div>
+
+<div class="history" id="history"></div>
+
 </div>
 </div>
 
 </div>
 
-<div class="footer">Made with 🖕 by NZ R</div>
+<div class="footer">Made with 🖕by NZ R</div>
 </div>
 
 <div class="modal" id="modal">
@@ -78,85 +160,106 @@ button:hover{transform:scale(.96)}
 </div>
 
 <script>
-const up=document.getElementById("up")
+const upload=document.getElementById("upload")
 const file=document.getElementById("file")
 const preview=document.getElementById("preview")
 const go=document.getElementById("go")
 const status=document.getElementById("status")
 const result=document.getElementById("result")
 const tools=document.getElementById("tools")
-const modal=document.getElementById("modal")
-const modalImg=document.getElementById("modalImg")
+const historyBox=document.getElementById("history")
 
 let uploaded=null
 let output=null
 
 const key="0be58d103f6f628f39a5ecda27e0f440"
 
-up.onclick=()=>file.click()
+upload.onclick=()=>file.click()
 
 file.onchange=e=>{
-const f=e.target.files[0]
-if(!f)return
-if(f.size>5*1024*1024){status.innerText="too big. what are you even doing?";return}
-const r=new FileReader()
-r.onload=x=>{
-preview.innerHTML=`<img src="${x.target.result}">`
-}
+let f=e.target.files[0]
+if(!f){status.innerText="no file. wow";return}
+if(f.size>5*1024*1024){status.innerText="too big. use your brain";return}
+
+let r=new FileReader()
+r.onload=x=>preview.innerHTML=`<img src="${x.target.result}">`
 r.readAsDataURL(f)
-upload(f)
+
+uploadImg(f)
 }
 
-async function upload(f){
-status.innerText="uploading... don't mess this up"
+async function uploadImg(f){
+status.innerText="uploading... try not to break it"
 let fd=new FormData()
 fd.append("key",key)
 fd.append("image",f)
 let res=await fetch("https://api.imgbb.com/1/upload",{method:"POST",body:fd})
 let data=await res.json()
+
 if(data.success){
 uploaded=data.data.url
-status.innerText="image ready. try not to ruin it"
+status.innerText="uploaded. finally did something right"
 }else{
-status.innerText="upload failed. pathetic"
+status.innerText="upload failed. useless"
 }
 }
 
 go.onclick=async()=>{
+let p=document.getElementById("prompt").value.trim()
+
 if(!uploaded){status.innerText="no image. genius";return}
-status.innerText="processing... try not to cry"
-result.innerHTML="thinking..."
+if(!p){status.innerText="no prompt. what do you expect? magic?";return}
+
+status.innerText="processing... don't cry"
+result.innerHTML="working..."
 tools.style.display="none"
 
-let p=document.getElementById("prompt").value||"black and white"
 let url=`https://rifatapiv3.vercel.app/api/ai/nanopro?p=${encodeURIComponent(p)}&url=${encodeURIComponent(uploaded)}`
 let res=await fetch(url)
 let data=await res.json()
 
 if(data.status){
 output=data.result
-result.innerHTML=`<img src="${output}">`
-tools.style.display="flex"
-status.innerText="done. better than your original trash"
+result.innerHTML=`<img src="${output}" onclick="openModal('${output}')">`
+tools.style.display="block"
+status.innerText="done. surprisingly not terrible"
+
+saveHistory(output)
 }else{
-status.innerText="AI failed. just like you"
+status.innerText="failed. not shocking"
 }
 }
 
-document.getElementById("view").onclick=()=>{
-modal.style.display="flex"
-modalImg.src=output
+async function copyImage(){
+if(!output){status.innerText="nothing to copy";return}
+let blob=await fetch(output).then(r=>r.blob())
+await navigator.clipboard.write([new ClipboardItem({[blob.type]:blob})])
+status.innerText="copied. now go away"
 }
 
-modal.onclick=()=>modal.style.display="none"
+document.getElementById("copy").onclick=copyImage
 
-document.getElementById("download").onclick=()=>{
-let a=document.createElement("a")
-a.href=output
-a.download="ai.png"
-a.click()
-status.innerText="download it and leave"
+function saveHistory(url){
+let arr=JSON.parse(localStorage.getItem("hist")||"[]")
+arr.unshift(url)
+arr=arr.slice(0,12)
+localStorage.setItem("hist",JSON.stringify(arr))
+renderHistory()
 }
+
+function renderHistory(){
+let arr=JSON.parse(localStorage.getItem("hist")||"[]")
+historyBox.innerHTML=arr.map(u=>`<img src="${u}" onclick="openModal('${u}')">`).join("")
+}
+
+function openModal(src){
+document.getElementById("modal").style.display="flex"
+document.getElementById("modalImg").src=src
+}
+
+document.getElementById("modal").onclick=()=>document.getElementById("modal").style.display="none"
+
+renderHistory()
 </script>
 
 </body>
