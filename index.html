@@ -3,85 +3,82 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>VOID//FORGE</title>
+<title>VOID//RENDER</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:#000;font-family:system-ui;color:#fff;padding:10px}
-.app{max-width:900px;margin:auto;background:#0a0a0a;border-radius:20px;padding:12px;border:1px solid #222}
-.header{text-align:center;margin-bottom:10px}
-.header h1{font-size:1.4rem}
-.header p{font-size:.7rem;color:#777}
-
-.card{background:#111;border-radius:14px;padding:12px;margin-bottom:10px;border:1px solid #222}
-.title{font-size:.85rem;margin-bottom:6px;border-left:3px solid #fff;padding-left:5px}
-
-.upload{border:2px dashed #333;padding:18px;text-align:center;border-radius:10px;cursor:pointer}
-.upload i{font-size:26px;color:#777}
-.upload p{font-size:.7rem;color:#777;margin-top:4px}
-
-textarea{width:100%;margin-top:8px;background:#050505;border:1px solid #222;border-radius:10px;padding:8px;color:#fff;font-size:.8rem}
-
-button{width:100%;margin-top:8px;background:#fff;color:#000;border:none;padding:8px;border-radius:20px;font-weight:600;cursor:pointer}
-
-.status{font-size:.7rem;text-align:center;margin-top:6px;color:#aaa}
-
-.preview img,.result img{width:100%;border-radius:10px;margin-top:6px}
-
-.actions{margin-top:6px;display:none}
-.actions button{background:#111;border:1px solid #333;color:#fff}
-
-.history{display:grid;grid-template-columns:repeat(auto-fill,minmax(60px,1fr));gap:5px;margin-top:8px}
-.history img{width:100%;border-radius:6px}
-
+body{background:#000;font-family:Inter,system-ui;color:#fff;display:flex;justify-content:center;align-items:center;min-height:100vh;padding:1rem}
+.app{max-width:1200px;width:100%;background:#0a0a0a;border:1px solid #2a2a2a;border-radius:2rem;padding:1.5rem;box-shadow:0 25px 60px rgba(0,0,0,.9);animation:fade .5s ease}
+@keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.brand{text-align:center;margin-bottom:1.5rem;border-bottom:1px solid #2c2c2c;padding-bottom:.8rem}
+.brand h1{font-size:1.8rem;display:flex;justify-content:center;gap:.5rem}
+.brand p{font-size:.8rem;color:#888}
+.flex{display:flex;flex-wrap:wrap;gap:1.5rem}
+.left{flex:1.2;min-width:250px}
+.right{flex:1;min-width:260px}
+.card{background:#111;border:1px solid #2b2b2b;border-radius:1.3rem;padding:1.2rem;transition:.2s}
+.card:hover{transform:translateY(-2px)}
+.title{font-size:1rem;margin-bottom:.8rem;border-left:3px solid #fff;padding-left:.5rem}
+.upload{border:2px dashed #333;padding:1.5rem;text-align:center;border-radius:1rem;cursor:pointer;transition:.2s;display:flex;flex-direction:column;align-items:center;gap:.5rem}
+.upload i{font-size:1.8rem;opacity:.7}
+.upload:hover{border-color:#fff;background:#151515}
+.preview img{max-width:100%;border-radius:.6rem;margin-top:.8rem}
+textarea{width:100%;background:#050505;border:1px solid #2e2e2e;border-radius:1rem;padding:.7rem;color:#fff;margin-top:.7rem}
+button{width:100%;margin-top:.8rem;background:#fff;color:#000;border:none;padding:.7rem;border-radius:2rem;font-weight:600;cursor:pointer;transition:.2s}
+button:hover{transform:scale(.96)}
+.status{margin-top:.8rem;font-size:.75rem;color:#aaa;text-align:center}
+.result img{width:100%;border-radius:1rem;margin-top:.6rem}
+.actions{display:none;margin-top:.8rem;gap:.5rem;justify-content:center}
+.actions button{width:auto;padding:.5rem 1rem;font-size:.8rem;background:transparent;border:1px solid #444;color:#fff}
+.actions button:hover{background:#222}
 .modal{position:fixed;top:0;left:0;width:100%;height:100%;background:#000;display:none;justify-content:center;align-items:center}
 .modal img{max-width:90%;max-height:90%}
-
-.footer{text-align:center;font-size:.65rem;color:#555;margin-top:6px}
+.footer{text-align:center;margin-top:1rem;font-size:.7rem;color:#666}
+@media(max-width:600px){
+.brand h1{font-size:1.4rem}
+.upload{padding:1.2rem}
+}
 </style>
 </head>
 <body>
 
 <div class="app">
-
-<div class="header">
-<h1>VOID//FORGE</h1>
-<p>feed garbage • get something usable</p>
+<div class="brand">
+<h1><i class="fas fa-skull"></i> VOID//RENDER</h1>
+<p>upload • suffer • regenerate</p>
 </div>
 
-<div class="card">
-<div class="title">input</div>
+<div class="flex">
 
-<div class="upload" id="upload">
+<div class="left">
+<div class="card">
+<div class="title">image</div>
+<div class="upload" id="up">
 <i class="fas fa-cloud-upload-alt"></i>
-<p>drop image</p>
+<span>drop it here or click... try not to mess it up</span>
 </div>
-
 <input type="file" id="file" hidden>
-
 <div class="preview" id="preview"></div>
-
-<textarea id="prompt" placeholder="type prompt"></textarea>
-
+<textarea id="prompt" placeholder="type something... or don’t, and fail"></textarea>
 <button id="go">generate</button>
-
-<div class="status" id="status">idle</div>
+<div class="status" id="status">waiting... don’t disappoint immediately</div>
+</div>
 </div>
 
-<div class="card">
-<div class="title">output</div>
-
-<div class="result" id="result"></div>
-
+<div class="right">
+<div class="card result">
+<div class="title">result</div>
+<div id="result">still empty. just like your effort</div>
 <div class="actions" id="tools">
-<button id="copy">copy image</button>
+<button id="view">preview</button>
+<button id="copy">copy</button>
+</div>
+</div>
 </div>
 
-<div class="history" id="history"></div>
 </div>
 
 <div class="footer">Made with 🖕by NZ R</div>
-
 </div>
 
 <div class="modal" id="modal">
@@ -89,119 +86,126 @@ button{width:100%;margin-top:8px;background:#fff;color:#000;border:none;padding:
 </div>
 
 <script>
-const upload=document.getElementById("upload")
+const up=document.getElementById("up")
 const file=document.getElementById("file")
 const preview=document.getElementById("preview")
-const result=document.getElementById("result")
+const go=document.getElementById("go")
 const status=document.getElementById("status")
+const result=document.getElementById("result")
 const tools=document.getElementById("tools")
-const historyBox=document.getElementById("history")
+const modal=document.getElementById("modal")
+const modalImg=document.getElementById("modalImg")
 
 let uploaded=null
 let output=null
+
 const key="0be58d103f6f628f39a5ecda27e0f440"
 
-upload.onclick=()=>file.click()
+up.onclick=()=>file.click()
 
-file.onchange=e=>{
-let f=e.target.files[0]
-if(!f){status.innerText="no file";return}
-
-let r=new FileReader()
-r.onload=x=>preview.innerHTML=`<img src="${x.target.result}">`
-r.readAsDataURL(f)
-
-uploadImg(f)
+up.ondragover=e=>{
+e.preventDefault()
+up.style.borderColor="#fff"
 }
 
-async function uploadImg(f){
-status.innerText="uploading..."
+up.ondragleave=()=>{
+up.style.borderColor="#333"
+}
+
+up.ondrop=e=>{
+e.preventDefault()
+up.style.borderColor="#333"
+handleFile(e.dataTransfer.files[0])
+}
+
+file.onchange=e=>{
+handleFile(e.target.files[0])
+}
+
+function handleFile(f){
+if(!f)return
+if(f.size>5*1024*1024){
+status.innerText="too big. are you trying to break it?"
+return
+}
+const r=new FileReader()
+r.onload=x=>{
+preview.innerHTML=`<img src="${x.target.result}">`
+}
+r.readAsDataURL(f)
+upload(f)
+}
+
+async function upload(f){
+status.innerText="uploading... don’t ruin this too"
 let fd=new FormData()
 fd.append("key",key)
 fd.append("image",f)
-
+try{
 let res=await fetch("https://api.imgbb.com/1/upload",{method:"POST",body:fd})
 let data=await res.json()
-
 if(data.success){
 uploaded=data.data.url
-status.innerText="uploaded"
+status.innerText="uploaded. now try not to ruin it"
 }else{
-status.innerText="failed"
+status.innerText="upload failed. impressive failure"
+}
+}catch{
+status.innerText="network died. not shocking"
 }
 }
 
-document.getElementById("go").onclick=async()=>{
-let p=document.getElementById("prompt").value.trim()
+go.onclick=async()=>{
+if(!uploaded){
+status.innerText="no image. genius move"
+return
+}
 
-if(!uploaded){status.innerText="no image";return}
-if(!p){status.innerText="no prompt";return}
+let p=document.getElementById("prompt").value
+if(!p){
+status.innerText="no prompt. what did you expect?"
+return
+}
 
-status.innerText="processing..."
-result.innerHTML=""
+status.innerText="processing... don’t cry yet"
+result.innerHTML="thinking..."
 tools.style.display="none"
 
+try{
 let url=`https://rifatapiv3.vercel.app/api/ai/nanopro?p=${encodeURIComponent(p)}&url=${encodeURIComponent(uploaded)}`
 let res=await fetch(url)
 let data=await res.json()
 
 if(data.status){
 output=data.result
-result.innerHTML=`<img src="${output}" onclick="openModal('${output}')">`
-tools.style.display="block"
-status.innerText="done"
-saveHistory(output)
+result.innerHTML=`<img src="${output}">`
+tools.style.display="flex"
+status.innerText="done. somehow not terrible"
 }else{
-status.innerText="failed"
+status.innerText="AI failed. like expected"
 }
-}
-
-async function copyImage(){
-if(!output){status.innerText="nothing to copy";return}
-
-try{
-let blob=await fetch(output).then(r=>r.blob())
-await navigator.clipboard.write([
-new ClipboardItem({[blob.type]:blob})
-])
-status.innerText="copied"
 }catch{
-let img=document.createElement("img")
-img.src=output
-document.body.appendChild(img)
-let range=document.createRange()
-range.selectNode(img)
-window.getSelection().removeAllRanges()
-window.getSelection().addRange(range)
-document.execCommand("copy")
-document.body.removeChild(img)
-status.innerText="copied (fallback)"
+status.innerText="request crashed. great job"
 }
 }
 
-document.getElementById("copy").onclick=copyImage
-
-function saveHistory(url){
-let arr=JSON.parse(localStorage.getItem("hist")||"[]")
-arr.unshift(url)
-arr=arr.slice(0,10)
-localStorage.setItem("hist",JSON.stringify(arr))
-renderHistory()
+document.getElementById("view").onclick=()=>{
+modal.style.display="flex"
+modalImg.src=output
 }
 
-function renderHistory(){
-let arr=JSON.parse(localStorage.getItem("hist")||"[]")
-historyBox.innerHTML=arr.map(u=>`<img src="${u}" onclick="openModal('${u}')">`).join("")
+modal.onclick=()=>modal.style.display="none"
+
+document.getElementById("copy").onclick=async()=>{
+try{
+const res=await fetch(output)
+const blob=await res.blob()
+await navigator.clipboard.write([new ClipboardItem({[blob.type]:blob})])
+status.innerText="copied. now disappear"
+}catch{
+status.innerText="copy failed. obviously"
 }
-
-function openModal(src){
-document.getElementById("modal").style.display="flex"
-document.getElementById("modalImg").src=src
 }
-
-document.getElementById("modal").onclick=()=>document.getElementById("modal").style.display="none"
-
-renderHistory()
 </script>
 
 </body>
