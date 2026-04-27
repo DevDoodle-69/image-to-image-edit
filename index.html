@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>MONOCHROME | AI IMAGE FORGE</title>
+    <title>MONOCHROME | AI FORGE - SAVAGE EDITION</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         * {
@@ -20,25 +20,9 @@
             padding: 1.5rem;
             min-height: 100vh;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
-            position: relative;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
-        }
-
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-5px); }
-            75% { transform: translateX(5px); }
         }
 
         .app-container {
@@ -50,13 +34,7 @@
             border-radius: 2rem;
             padding: 1.8rem;
             box-shadow: 0 25px 45px -12px rgba(0,0,0,0.8), inset 0 1px 0 rgba(255,255,255,0.05);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            animation: fadeIn 0.5s ease-out;
-        }
-
-        .app-container:hover {
-            border-color: #3a3a3a;
-            box-shadow: 0 30px 55px -15px rgba(0,0,0,0.9);
+            transition: all 0.2s ease;
         }
 
         .brand {
@@ -65,7 +43,6 @@
             border-bottom: 1px solid #2c2c2c;
             padding-bottom: 1rem;
         }
-
         .brand h1 {
             font-size: 2rem;
             letter-spacing: -0.02em;
@@ -74,18 +51,11 @@
             align-items: center;
             justify-content: center;
             gap: 0.75rem;
-            transition: transform 0.2s ease;
         }
-
-        .brand h1:hover {
-            transform: scale(1.02);
-        }
-
         .brand h1 i {
             font-size: 1.8rem;
             color: #e0e0e0;
         }
-
         .brand p {
             color: #aaa;
             font-size: 0.85rem;
@@ -98,12 +68,10 @@
             gap: 2rem;
             margin-top: 1rem;
         }
-
         .upload-panel {
             flex: 1.2;
             min-width: 240px;
         }
-
         .preview-panel {
             flex: 1;
             min-width: 260px;
@@ -115,14 +83,11 @@
             border-radius: 1.5rem;
             padding: 1.5rem;
             margin-bottom: 1.8rem;
-            transition: all 0.3s ease;
+            transition: 0.2s cubic-bezier(0.2, 0.9, 0.4, 1.1);
         }
-
         .card:hover {
             border-color: #3f3f3f;
-            transform: translateY(-2px);
         }
-
         .card-title {
             font-size: 1.25rem;
             font-weight: 500;
@@ -133,7 +98,6 @@
             border-left: 3px solid #ffffff;
             padding-left: 0.75rem;
         }
-
         .card-title i {
             font-size: 1.2rem;
             color: #ddd;
@@ -146,45 +110,33 @@
             padding: 1.8rem 1rem;
             text-align: center;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
             margin-bottom: 1.2rem;
         }
-
         .upload-area:hover {
             border-color: #ffffff;
             background: #151515;
             transform: scale(0.99);
         }
-
         .upload-area i {
             font-size: 2.8rem;
             color: #ccc;
             margin-bottom: 0.8rem;
-            transition: transform 0.2s ease;
         }
-
-        .upload-area:hover i {
-            transform: scale(1.1);
-        }
-
         .upload-area p {
             font-size: 0.9rem;
             color: #bbb;
         }
-
         .file-input {
             display: none;
         }
-
         .image-preview {
             margin-top: 1rem;
             background: #080808;
             border-radius: 1rem;
             padding: 0.5rem;
             text-align: center;
-            transition: all 0.2s ease;
         }
-
         .image-preview img {
             max-width: 100%;
             max-height: 220px;
@@ -192,13 +144,7 @@
             border: 1px solid #2a2a2a;
             object-fit: contain;
             background: #000;
-            transition: transform 0.2s ease;
         }
-
-        .image-preview img:hover {
-            transform: scale(1.02);
-        }
-
         .img-placeholder {
             color: #666;
             font-size: 0.8rem;
@@ -208,7 +154,6 @@
         .prompt-group {
             margin: 1rem 0 0.8rem;
         }
-
         .prompt-group label {
             font-size: 0.85rem;
             font-weight: 500;
@@ -216,7 +161,6 @@
             margin-bottom: 0.5rem;
             color: #ccc;
         }
-
         .prompt-input {
             width: 100%;
             background: #050505;
@@ -226,16 +170,14 @@
             font-size: 0.95rem;
             color: #fff;
             font-family: inherit;
-            transition: all 0.2s ease;
+            transition: 0.2s;
             resize: vertical;
         }
-
         .prompt-input:focus {
             outline: none;
             border-color: #ffffff;
-            box-shadow: 0 0 0 2px #3a3a3a;
+            box-shadow: 0 0 0 1px #3a3a3a;
         }
-
         .btn-generate {
             width: 100%;
             background: #ffffff;
@@ -250,19 +192,16 @@
             justify-content: center;
             gap: 0.7rem;
             cursor: pointer;
-            transition: all 0.2s ease;
+            transition: 0.2s;
             margin-top: 0.2rem;
         }
-
         .btn-generate:hover {
             background: #e6e6e6;
             transform: scale(0.98);
         }
-
         .btn-generate:active {
             transform: scale(0.96);
         }
-
         .btn-generate i {
             font-size: 1rem;
             color: #000;
@@ -274,20 +213,14 @@
             text-align: center;
             padding: 1rem;
             border: 1px solid #2c2c2c;
-            transition: all 0.3s ease;
         }
-
-        .result-card:hover {
-            border-color: #3f3f3f;
-        }
-
         .result-image-wrapper {
             position: relative;
             display: inline-block;
             width: 100%;
             cursor: pointer;
+            transition: 0.1s;
         }
-
         .result-image {
             width: 100%;
             border-radius: 1rem;
@@ -295,14 +228,11 @@
             object-fit: contain;
             background: #000000;
             border: 1px solid #2b2b2b;
-            transition: all 0.3s ease;
+            transition: transform 0.2s ease;
         }
-
         .result-image:hover {
             transform: scale(1.01);
-            border-color: #ffffff;
         }
-
         .preview-badge {
             margin-top: 0.6rem;
             font-size: 0.75rem;
@@ -311,7 +241,6 @@
             gap: 1rem;
             color: #aaa;
         }
-
         .preview-badge span {
             background: #1c1c1c;
             padding: 0.25rem 0.8rem;
@@ -320,14 +249,12 @@
             align-items: center;
             gap: 0.4rem;
         }
-
         .download-area {
             margin-top: 1rem;
             display: flex;
             gap: 0.8rem;
             justify-content: center;
         }
-
         .btn-download, .btn-preview-trigger {
             background: transparent;
             border: 1px solid #3f3f3f;
@@ -337,19 +264,17 @@
             font-size: 0.85rem;
             color: #f0f0f0;
             cursor: pointer;
-            transition: all 0.2s ease;
+            transition: 0.2s;
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
         }
-
         .btn-download:hover, .btn-preview-trigger:hover {
             background: #1f1f1f;
             border-color: #ffffff;
             color: white;
-            transform: translateY(-1px);
+            transform: translateY(-2px);
         }
-
         .spinner {
             display: inline-block;
             width: 18px;
@@ -359,18 +284,10 @@
             border-radius: 50%;
             animation: spin 0.7s linear infinite;
         }
-
-        .spinner-white {
-            border-top: 2px solid #fff;
-            border: 2px solid rgba(255,255,255,0.2);
-            border-top-color: #fff;
-        }
-
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
-
         .status-msg {
             background: #121212;
             border-radius: 2rem;
@@ -378,12 +295,10 @@
             text-align: center;
             font-size: 0.8rem;
             margin-top: 1rem;
-            color: #aaa;
             border-left: 2px solid #333;
-            transition: all 0.2s ease;
-            animation: fadeIn 0.3s ease-out;
+            transition: 0.1s;
+            font-weight: 500;
         }
-
         .modal-preview {
             display: none;
             position: fixed;
@@ -396,18 +311,19 @@
             justify-content: center;
             align-items: center;
             cursor: pointer;
-            animation: fadeIn 0.2s ease-out;
         }
-
         .modal-preview.active {
             display: flex;
+            animation: fadeIn 0.2s ease;
         }
-
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
         .modal-content {
             max-width: 90vw;
             max-height: 90vh;
         }
-
         .modal-content img {
             width: auto;
             max-width: 100%;
@@ -415,9 +331,7 @@
             border-radius: 1rem;
             border: 1px solid #333;
             box-shadow: 0 0 40px rgba(0,0,0,0.5);
-            transition: transform 0.2s ease;
         }
-
         .close-modal {
             position: absolute;
             top: 20px;
@@ -427,29 +341,22 @@
             background: none;
             border: none;
             cursor: pointer;
-            transition: transform 0.2s ease;
         }
-
-        .close-modal:hover {
-            transform: scale(1.1);
-        }
-
-        .footer {
-            margin-top: 2rem;
+        .footer-roast {
+            margin-top: 1.2rem;
             text-align: center;
-            padding: 1rem;
-            border-top: 1px solid #1f1f1f;
             font-size: 0.75rem;
+            color: #3a3a3a;
+            border-top: 1px solid #1f1f1f;
+            padding-top: 1rem;
+            width: 100%;
+            max-width: 1280px;
+            margin-left: auto;
+            margin-right: auto;
+            letter-spacing: 0.3px;
+        }
+        .footer-roast span {
             color: #555;
-            letter-spacing: 0.5px;
-        }
-
-        .footer span {
-            transition: color 0.2s ease;
-        }
-
-        .footer:hover span {
-            color: #888;
         }
 
         @media (max-width: 720px) {
@@ -472,9 +379,12 @@
             cursor: not-allowed;
             transform: none;
         }
-
-        .error-shake {
-            animation: shake 0.4s ease-in-out;
+        hr {
+            border-color: #252525;
+            margin: 0.5rem 0;
+        }
+        .rude-highlight {
+            color: #ffb7a7;
         }
     </style>
 </head>
@@ -486,7 +396,7 @@
             <i class="fas fa-drafting-compass"></i> 
             MONOCHROME · AI FORGE
         </h1>
-        <p>upload · prompt · transform · black & white essence</p>
+        <p>savage edits only - your taste is probably trash but we fix it</p>
     </div>
 
     <div class="workflow">
@@ -494,29 +404,29 @@
             <div class="card">
                 <div class="card-title">
                     <i class="fas fa-cloud-upload-alt"></i>
-                    <span>source image</span>
+                    <span>source garbage</span>
                 </div>
                 <div class="upload-area" id="uploadTrigger">
                     <i class="fas fa-image"></i>
-                    <p>click or drag & drop</p>
-                    <p style="font-size: 0.7rem; margin-top: 0.3rem;">PNG, JPG, WEBP up to 5MB</p>
+                    <p>click or drop your pathetic file</p>
+                    <p style="font-size: 0.7rem; margin-top: 0.3rem;">PNG, JPG, WEBP up to 5MB - dont waste my time</p>
                 </div>
                 <input type="file" id="fileInput" class="file-input" accept="image/jpeg,image/png,image/webp,image/jpg">
                 <div class="image-preview" id="imagePreviewContainer">
                     <div class="img-placeholder">
-                        <i class="fas fa-camera"></i> no image selected
+                        <i class="fas fa-camera"></i> no image selected, genius
                     </div>
                 </div>
 
                 <div class="prompt-group">
-                    <label><i class="fas fa-pen-fancy"></i> edit prompt</label>
-                    <textarea class="prompt-input" id="promptText" rows="2" placeholder="Describe edit: e.g., 'make it black and white', 'add vintage grain', 'high contrast monochrome' ..."></textarea>
+                    <label><i class="fas fa-pen-fancy"></i> edit prompt (make it good)</label>
+                    <textarea class="prompt-input" id="promptText" rows="2" placeholder="e.g., 'make it black and white you idiot', 'add vintage grain before i lose it', 'high contrast monochrome or else'"></textarea>
                 </div>
                 <button class="btn-generate" id="generateBtn">
-                    <i class="fas fa-magic"></i> generate AI edit
+                    <i class="fas fa-magic"></i> generate you fool
                 </button>
                 <div class="status-msg" id="statusMsg">
-                    <i class="fas fa-info-circle"></i> ready
+                    <i class="fas fa-info-circle"></i> idle - do something useful
                 </div>
             </div>
         </div>
@@ -525,27 +435,27 @@
             <div class="card result-card">
                 <div class="card-title">
                     <i class="fas fa-robot"></i>
-                    <span>AI output</span>
+                    <span>AI output (dont screw it up)</span>
                 </div>
                 <div id="resultArea">
                     <div class="img-placeholder" style="padding: 2rem;">
-                        <i class="fas fa-hourglass-half"></i> result will appear here
+                        <i class="fas fa-hourglass-half"></i> result better appear soon...
                     </div>
                 </div>
                 <div class="download-area" id="downloadTools" style="display: none;">
                     <button class="btn-preview-trigger" id="previewModalBtn">
-                        <i class="fas fa-expand"></i> tap to preview
+                        <i class="fas fa-expand"></i> preview (dont be scared)
                     </button>
                     <button class="btn-download" id="downloadBtn">
-                        <i class="fas fa-download"></i> download image
+                        <i class="fas fa-download"></i> save trash
                     </button>
                 </div>
             </div>
         </div>
     </div>
-    <div class="footer">
-        <span>Made with 🖕 by NZ R</span>
-    </div>
+</div>
+<div class="footer-roast">
+    Made with 🖕by NZ R — don't forget your image sucks before AI fixed it.
 </div>
 
 <div id="imageModal" class="modal-preview">
@@ -579,36 +489,20 @@
         const IMGBB_UPLOAD_URL = "https://api.imgbb.com/1/upload";
         const AI_EDIT_API_BASE = "https://rifatapiv3.vercel.app/api/ai/nanopro";
 
-        const roastMessages = [
-            "seriously? thats the best you got? pathetic...",
-            "oh wow, another brainless attempt. try harder idiot",
-            "you call that an image? my grandma edits better blindfolded",
-            "congratulations on wasting my processing power, moron",
-            "absolute garbage. do you even have eyes?",
-            "fails miserably. what a shocker, not",
-            "are you even trying or just stupid?",
-            "mediocrity at its finest. congratulations dipshit"
-        ];
-
-        function getRandomRoast() {
-            return roastMessages[Math.floor(Math.random() * roastMessages.length)];
-        }
-
         function setStatus(message, isError = false) {
-            statusMsgDiv.innerHTML = `<i class="fas ${isError ? 'fa-exclamation-triangle' : 'fa-circle-info'}"></i> ${message}`;
+            statusMsgDiv.innerHTML = `<i class="fas ${isError ? 'fa-skull' : 'fa-fire'}"></i> ${message}`;
             if(isError) {
-                statusMsgDiv.style.color = "#ff6b5b";
-                statusMsgDiv.classList.add('error-shake');
-                setTimeout(() => {
-                    statusMsgDiv.classList.remove('error-shake');
-                }, 400);
+                statusMsgDiv.style.color = "#ff8a7a";
+                statusMsgDiv.style.borderLeftColor = "#ff4d4d";
                 setTimeout(() => {
                     if(statusMsgDiv.innerHTML.includes(message)) {
                         statusMsgDiv.style.color = "#aaa";
+                        statusMsgDiv.style.borderLeftColor = "#333";
                     }
-                }, 3500);
+                }, 4000);
             } else {
-                statusMsgDiv.style.color = "#aaa";
+                statusMsgDiv.style.color = "#cdcdcd";
+                statusMsgDiv.style.borderLeftColor = "#555";
             }
         }
 
@@ -617,6 +511,7 @@
             reader.onload = function(e) {
                 previewContainer.innerHTML = `
                     <img src="${e.target.result}" alt="upload preview" style="max-width:100%; max-height:200px; border-radius:0.75rem; border:1px solid #333;">
+                    <div style="font-size:0.7rem; margin-top:6px; color:#777;">congrats you picked something, barely</div>
                 `;
             };
             reader.readAsDataURL(file);
@@ -627,7 +522,7 @@
             formData.append("key", IMGBB_API_KEY);
             formData.append("image", file);
             try {
-                setStatus("uploading to image host... dont screw this up");
+                setStatus("uploading your junk... dont choke");
                 const response = await fetch(IMGBB_UPLOAD_URL, {
                     method: "POST",
                     body: formData
@@ -635,43 +530,44 @@
                 const data = await response.json();
                 if(data && data.success && data.data && data.data.url) {
                     const directUrl = data.data.url;
-                    setStatus("image uploaded. finally you did something right");
+                    setStatus("uploaded. shocking. ready for AI torment.");
                     return directUrl;
                 } else {
-                    throw new Error(data.error?.message || "upload failed you moron");
+                    throw new Error(data.error?.message || "upload failed, your fault");
                 }
             } catch(err) {
                 console.error(err);
-                throw new Error("imgbb upload error: " + err.message + " you useless creature");
+                throw new Error("imgbb failed: " + err.message + " - maybe learn how to use internet");
             }
         }
 
         async function callImageEditAPI(imageUrl, userPrompt) {
-            let finalPrompt = userPrompt && userPrompt.trim() !== "" ? userPrompt.trim() : "make it black and white, high contrast monochrome style";
+            let finalPrompt = userPrompt && userPrompt.trim() !== "" ? userPrompt.trim() : "make it black and white, high contrast monochrome style, do it aggressively";
+            if(finalPrompt.length < 3) finalPrompt = "black and white brutal contrast, do something useful";
             const encodedPrompt = encodeURIComponent(finalPrompt);
             const encodedImageUrl = encodeURIComponent(imageUrl);
             const apiUrl = `${AI_EDIT_API_BASE}?p=${encodedPrompt}&url=${encodedImageUrl}`;
             try {
-                setStatus("calling AI engine... praying it works for your dumb ass");
+                setStatus("calling AI engine... hold your breath, maggot");
                 const response = await fetch(apiUrl);
                 const result = await response.json();
                 if(result && result.status === true && result.result && typeof result.result === "string") {
                     return result.result;
                 } else {
-                    let errMsg = result.error || "api returned garbage response";
+                    let errMsg = result.error || "API returned garbage, not my problem";
                     throw new Error(errMsg);
                 }
             } catch(err) {
                 console.error(err);
-                throw new Error("AI edit collapsed: " + err.message + " maybe try being less incompetent");
+                throw new Error("AI edit crashed: " + err.message + " maybe prompt was as stupid as you");
             }
         }
 
         function showLoadingOnResult() {
             resultArea.innerHTML = `
                 <div style="display:flex; justify-content:center; align-items:center; gap:0.8rem; background:#0f0f0f; padding:2rem; border-radius:1.2rem;">
-                    <div class="spinner spinner-white" style="border-top-color:#aaa;"></div>
-                    <span style="color:#ccc;">generating AI edit ... dont hold your breath</span>
+                    <div class="spinner" style="border-top-color:#aaa;"></div>
+                    <span style="color:#ccc;">processing your garbage... wait</span>
                 </div>
             `;
             downloadTools.style.display = "none";
@@ -685,7 +581,7 @@
                     <img src="${imageUrl}" alt="edited result" class="result-image" id="resultImg">
                 </div>
                 <div class="preview-badge">
-                    <span><i class="fas fa-vector-square"></i> AI refined · at least i tried</span>
+                    <span><i class="fas fa-vector-square"></i> AI actually fixed your trash</span>
                 </div>
             `;
             downloadTools.style.display = "flex";
@@ -696,7 +592,7 @@
                     openModalWithImage(imageUrl);
                 });
             }
-            setStatus("image generated. dont act like you did the hard work");
+            setStatus("generation done. dont act like you did something impressive.");
         }
 
         function openModalWithImage(src) {
@@ -704,14 +600,13 @@
             modalImg.src = src;
             modal.classList.add('active');
         }
-
         function closeModal() {
             modal.classList.remove('active');
         }
 
         function downloadCurrentImage() {
             if(!currentGeneratedResultUrl) {
-                setStatus("nothing to download you blind idiot", true);
+                setStatus("no image to download, you absolute waste of time", true);
                 return;
             }
             const link = document.createElement('a');
@@ -721,77 +616,78 @@
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
-            setStatus("download started. try not to lose it");
+            setStatus("download started. try not to lose it like your dignity.");
         }
 
         async function onGenerate() {
             if(isProcessing) {
-                setStatus("still processing you impatient fool", true);
+                setStatus("already processing. patience, you thick skull.", true);
                 return;
             }
             if(!currentUploadedImageUrl) {
-                setStatus("no image selected. are you blind or just stupid?", true);
+                setStatus("NO IMAGE. select a file first, you donkey.", true);
                 return;
             }
             const prompt = promptTextarea.value;
             if(!prompt || prompt.trim() === "") {
-                setStatus("empty prompt? fine, i'll do the work for you. lazy bastard", false);
+                setStatus("prompt empty? so you expect magic from nothing? fine, default will drag your ass.", false);
             }
             isProcessing = true;
             generateBtn.disabled = true;
-            generateBtn.innerHTML = `<div class="spinner" style="border-top-color:#000;"></div> processing... dont annoy me`;
+            generateBtn.innerHTML = `<div class="spinner" style="border-top-color:#000;"></div> processing your mess...`;
             showLoadingOnResult();
 
             try {
                 const resultImageUrl = await callImageEditAPI(currentUploadedImageUrl, prompt);
                 if(resultImageUrl && resultImageUrl.startsWith("http")) {
                     displayResultImage(resultImageUrl);
-                    setStatus("done. try not to screw up next time");
+                    setStatus("success. your image looks presentable now. you're welcome.");
                 } else {
-                    throw new Error("invalid result url from API");
+                    throw new Error("invalid result url from api. probably your bad luck.");
                 }
             } catch(error) {
                 console.error(error);
-                const roast = getRandomRoast();
-                setStatus(`${roast} - ${error.message}`, true);
-                resultArea.innerHTML = `<div class="img-placeholder" style="color:#ff6b5b;"><i class="fas fa-skull-crosswalk"></i> generation failed. maybe try something else moron</div>`;
+                setStatus(`FAILURE: ${error.message} - try not being incompetent`, true);
+                resultArea.innerHTML = `<div class="img-placeholder" style="color:#ff9180;"><i class="fas fa-skull-crosswalk"></i> generation failed. AI laughed at your request.</div>`;
                 downloadTools.style.display = "none";
                 currentGeneratedResultUrl = null;
             } finally {
                 isProcessing = false;
                 generateBtn.disabled = false;
-                generateBtn.innerHTML = `<i class="fas fa-magic"></i> generate AI edit`;
+                generateBtn.innerHTML = `<i class="fas fa-magic"></i> generate you fool`;
             }
         }
 
         async function handleFileSelection(file) {
-            if(!file) return;
+            if(!file) {
+                setStatus("no file? you clicking for fun? get lost", true);
+                return;
+            }
             if(file.size > 5 * 1024 * 1024) {
-                setStatus("file too large. you really think i can handle that garbage? max 5MB", true);
+                setStatus("file over 5MB. you think i have unlimited bandwidth? compress it, moron.", true);
                 return;
             }
             showUploadPreview(file);
-            setStatus("uploading... try not to interrupt");
+            setStatus("uploading to imgbb... dont hold your breath");
             try {
                 const directUrl = await uploadToImgbb(file);
                 currentUploadedImageUrl = directUrl;
-                setStatus(`image ready. url shortened: ${directUrl.substring(0, 40)}... dont lose it`);
-                const existingPreview = previewContainer.querySelector('img');
-                if(existingPreview) {
+                let shortUrl = directUrl.substring(0, 45) + (directUrl.length > 45 ? "..." : "");
+                setStatus(`image hosted. url: ${shortUrl} - try not to fail next step.`);
+                let existingBadge = previewContainer.querySelector('.hosted-badge');
+                if(!existingBadge) {
                     let badgeSpan = document.createElement('div');
+                    badgeSpan.className = "hosted-badge";
                     badgeSpan.style.fontSize = "0.7rem";
                     badgeSpan.style.marginTop = "0.5rem";
                     badgeSpan.style.color = "#aaa";
-                    badgeSpan.innerHTML = '<i class="fas fa-link"></i> hosted ✓';
-                    if(!previewContainer.querySelector('.hosted-badge')) {
-                        badgeSpan.className = "hosted-badge";
-                        previewContainer.appendChild(badgeSpan);
-                    }
+                    badgeSpan.innerHTML = '<i class="fas fa-check-circle"></i> hosted, you did one thing right';
+                    previewContainer.appendChild(badgeSpan);
                 }
             } catch(err) {
-                setStatus(`upload failure: ${err.message}`, true);
+                setStatus(`upload catastrophe: ${err.message} - maybe your firewall hates you`, true);
                 currentUploadedImageUrl = null;
-                previewContainer.innerHTML = `<div class="img-placeholder"><i class="fas fa-exclamation-triangle"></i> upload failed. try again if you dare</div>`;
+                previewContainer.innerHTML = `<div class="img-placeholder"><i class="fas fa-exclamation-triangle"></i> upload failed. retry or quit.</div>`;
             }
         }
 
@@ -826,7 +722,7 @@
                 if(file.type.startsWith('image/')) {
                     handleFileSelection(file);
                 } else {
-                    setStatus("dropped something thats not an image. are you dumb?", true);
+                    setStatus("that's not an image. are you blind?", true);
                 }
             }
         });
@@ -836,7 +732,7 @@
             if(currentGeneratedResultUrl) {
                 openModalWithImage(currentGeneratedResultUrl);
             } else {
-                setStatus("nothing to preview. generate something first you impatient fool", true);
+                setStatus("no result to preview. generate something first you impatient fool.", true);
             }
         });
         downloadBtn.addEventListener('click', downloadCurrentImage);
@@ -845,8 +741,8 @@
             if(e.target === modal) closeModal();
         });
 
-        promptTextarea.value = "make it black and white, deep shadows, artistic monochrome";
-        setStatus("ready. upload an image and maybe you wont screw this up");
+        promptTextarea.value = "make it black and white, deep shadows, aggressive monochrome style";
+        setStatus("idle. pick an image if you dare. and dont screw the prompt.");
     })();
 </script>
 </body>
